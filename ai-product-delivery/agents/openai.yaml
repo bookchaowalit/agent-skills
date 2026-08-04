@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Product Delivery"
+  short_description: "Ship production-ready AI products safely"
+  default_prompt: "Use $ai-product-delivery to plan and ship a production-ready AI feature."

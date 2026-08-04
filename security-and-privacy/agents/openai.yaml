@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security & Privacy"
+  short_description: "Protect secrets, data, and client boundaries"
+  default_prompt: "Use $security-and-privacy to review a workflow for security and privacy risks."

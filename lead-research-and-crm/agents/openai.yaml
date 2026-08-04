@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lead Research & CRM"
+  short_description: "Find, qualify, and manage revenue leads"
+  default_prompt: "Use $lead-research-and-crm to research and qualify leads for the empire."

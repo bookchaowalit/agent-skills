@@ -1,0 +1,4 @@
+interface:
+  display_name: "Content Distribution"
+  short_description: "Create, repurpose, and distribute content"
+  default_prompt: "Use $content-distribution to turn one idea into a practical content distribution plan."

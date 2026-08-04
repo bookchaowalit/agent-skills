@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Agent Workflows"
+  short_description: "Design safe, reliable AI agent workflows"
+  default_prompt: "Use $ai-agent-workflows to design a safe, testable agent workflow."

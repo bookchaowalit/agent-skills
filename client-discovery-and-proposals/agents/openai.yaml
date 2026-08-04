@@ -1,0 +1,4 @@
+interface:
+  display_name: "Client Discovery & Proposals"
+  short_description: "Turn client pain into scoped proposals"
+  default_prompt: "Use $client-discovery-and-proposals to turn a client need into a scoped proposal."
