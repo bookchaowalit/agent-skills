@@ -15,7 +15,7 @@ use only the artifact templates required by the bounded initiative.
 
 - Read dashboard/CURRENT-STATE.md, docs/ARCHITECTURE.md, and
   docs/AI-AGENT-GUIDE.md before substantial work.
-- Read docs/roles/business-analyst/README.md and PROCESS.md.
+- Read roles/business-analyst/README.md and PROCESS.md.
 - Identify the owning boundary, accountable decision maker, affected users,
   data classification, current status, and live task source.
 - Inspect git status and preserve unrelated changes.

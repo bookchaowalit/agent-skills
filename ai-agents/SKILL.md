@@ -18,7 +18,7 @@ tools, and tests before adding new mechanisms.
 
 - Read `dashboard/CURRENT-STATE.md`, `docs/ARCHITECTURE.md`,
   `docs/AI-AGENT-GUIDE.md`, and `infra/README.md` before substantial work.
-- Read the relevant `docs/operations/` or `docs/integrations/` document when
+- Read the relevant `operations/` or `integrations/` document when
   the task concerns a documented platform or external integration.
 - Inspect `git status --short` and preserve unrelated user changes. Do not use
   destructive Git commands.
@@ -89,7 +89,7 @@ is unavailable, record the exact limitation and do not hide the failure.
 - Need a repeatable deterministic operation → implement or reuse an
   `infra/scripts/` helper; do not embed it in `SKILL.md`.
 - Need agent judgment, routing, or safety procedure → update this skill.
-- Need durable operational policy or a runbook → update `docs/operations/` or
+- Need durable operational policy or a runbook → update `operations/` or
   the relevant documentation boundary, not this skill alone.
 - Need a blank reusable document or artifact → copy from `templates/` into its
   owning workspace and leave the source template unchanged.

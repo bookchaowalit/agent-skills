@@ -12,8 +12,8 @@ default.
 | Architecture or boundary | `docs/ARCHITECTURE.md`, `docs/AI-AGENT-GUIDE.md` |
 | Infra inventory | `infra/README.md` |
 | Workspace location | `docs/WORKSPACE-STRUCTURE.md`, `docs/WORKSPACE-LOCATION-MAP.md` |
-| New ingress/import | `docs/systems/data-lake-architecture.md`, `learning/platform-engineering/app-cli-data-lake-playbook.md` |
-| AI/RAG/MLOps | `docs/systems/central-mlops-devsecops-pipeline.md`, matching `docs/operations/` runbook |
+| New ingress/import | `systems/data-lake-architecture.md`, `learning/platform-engineering/app-cli-data-lake-playbook.md` |
+| AI/RAG/MLOps | `systems/central-mlops-devsecops-pipeline.md`, matching `operations/` runbook |
 | Documentation change | `docs/DOCUMENTATION-STANDARDS.md`, `docs/DOC-MAINTENANCE.md` |
 | External identity | `accounts/README.md`, `accounts/ACCOUNT-REGISTRY.md` |
 
