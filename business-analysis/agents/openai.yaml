@@ -1,0 +1,4 @@
+interface:
+  display_name: "Business Analysis"
+  short_description: "BA lifecycle with traceability and UAT"
+  default_prompt: "Use $business-analysis to structure requirements, change control, UAT, and handoff."

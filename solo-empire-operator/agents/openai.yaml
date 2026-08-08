@@ -1,0 +1,6 @@
+interface:
+  display_name: "Solo Empire Operator"
+  short_description: "Route short requests across Solo Empire"
+  default_prompt: "Use $solo-empire-operator to inspect, improve, or operate Solo Empire safely."
+policy:
+  allow_implicit_invocation: true

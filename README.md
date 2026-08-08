@@ -14,6 +14,10 @@ are genuinely needed.
 5. Keep secrets, personal data, generated output, and provider-local state out
    of the skill package.
 
+For a short or cross-cutting request, start with
+`solo-empire-operator/SKILL.md`; it selects the relevant infra command,
+repository document, and specialist skill without loading the whole system.
+
 Copy `skills/skill-template/` when creating a new skill. Skill names use
 lowercase letters, digits, and hyphens. Keep the body concise and put trigger
 conditions in frontmatter.
@@ -21,6 +25,17 @@ conditions in frontmatter.
 These are repository-owned, provider-neutral instructions. `.claude/`,
 `.qoder/`, `.codex/`, and other dot-directories remain provider discovery and
 runtime boundaries; do not move them here.
+
+## Available skills
+
+- ai-agent-workflows — reliable agent loops, approvals, evidence, and failure handling
+- ai-agents — safe AI tool and infrastructure operation
+- ai-product-delivery — production delivery for AI products and features
+- business-analysis — requirements, traceability, UAT, and benefits handoff
+- client-discovery-and-proposals — qualified scope, proposal, pricing, and delivery handoff
+- content-distribution — evidence-backed content planning and measurement
+- lead-research-and-crm — lead qualification, outreach, and CRM hygiene
+- security-and-privacy — data classification, trust boundaries, and security review
 
 ## Layout
 
@@ -31,4 +46,3 @@ skills/
     ├── SKILL.md
     └── agents/openai.yaml
 ```
-
