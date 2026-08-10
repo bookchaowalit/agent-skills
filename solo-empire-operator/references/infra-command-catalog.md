@@ -12,8 +12,8 @@ default.
 | Architecture or boundary | `docs/ARCHITECTURE.md`, `docs/AI-AGENT-GUIDE.md` |
 | Infra inventory | `infra/README.md` |
 | Workspace location | `docs/WORKSPACE-STRUCTURE.md`, `docs/WORKSPACE-LOCATION-MAP.md` |
-| New ingress/import | `systems/data-lake-architecture.md`, `learning/platform-engineering/app-cli-data-lake-playbook.md` |
-| AI/RAG/MLOps | `systems/central-mlops-devsecops-pipeline.md`, matching `operations/` runbook |
+| New ingress/import | `systems/ai-data/data-lake-architecture.md`, `learning/platform-engineering/app-cli-data-lake-playbook.md` |
+| AI/RAG/MLOps | `systems/ai-data/central-mlops-devsecops-pipeline.md`, matching `operations/` runbook |
 | Documentation change | `docs/DOCUMENTATION-STANDARDS.md`, `docs/DOC-MAINTENANCE.md` |
 | External identity | `accounts/README.md`, `accounts/ACCOUNT-REGISTRY.md` |
 
@@ -73,7 +73,7 @@ npm --prefix infra run test:platform
 npm --prefix infra run test:workspace
 npm --prefix infra run test:automation
 npm --prefix infra run test:analytics
-python3 infra/tests/security_test.py
+python3 infra/tests/security/security_test.py
 ```
 
 Do not describe a check as passed when a credential, external service, or
@@ -108,7 +108,7 @@ python3 infra/scripts/mlops/pipeline.py \
   --output-dir "$(mktemp -d)" \
   --registry-dir "$(mktemp -d)" \
   --json
-python3 infra/tests/mlops_pipeline_test.py
+python3 infra/tests/mlops/mlops_pipeline_test.py
 npm --prefix infra run agent:telemetry -- \
   --route ai-pipeline --provider example --model example-model \
   --input-tokens 900 --output-tokens 100 --token-budget 1200 \
