@@ -12,6 +12,13 @@ loop. Treat `skills/` as the agent instruction layer and `infra/` as the
 implementation and tool layer: invoke existing CLI commands, scripts, MCP
 tools, and tests before adding new mechanisms.
 
+## Response language
+
+Use Thai for all human-facing agent responses by default. Keep code, commands,
+paths, identifiers, logs, protocol fields, and quoted source text exact. Follow
+another language only when the user explicitly requests it for the response or
+artifact.
+
 ## Workflow
 
 ### 1. Establish context

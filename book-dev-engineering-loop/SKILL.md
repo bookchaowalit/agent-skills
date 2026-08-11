@@ -5,25 +5,29 @@ description: Execute one bounded Book Dev task from the daily engineering-loop h
 
 # Book Dev Engineering Loop
 
-Use this skill when an AI agent is asked to act on a candidate in
-`data/runtime/agent-loop/book-dev/latest.md`.
+Use this skill when an AI agent is asked to act on the Book Dev engineering
+loop. Prefer the single-candidate execution ticket first:
+
+- `data/runtime/agent-loop/book-dev/execution/current.md`
+- fallback queue: `data/runtime/agent-loop/book-dev/latest.md`
 
 ## Contract
 
 The daily scanner is deterministic and read-only. It discovers open local Book
-Dev tasks, inspects nested Git status, and prepares a bounded handoff. This
-skill is the execution side of that handoff and must work on **one candidate at
-a time**.
+Dev tasks, inspects nested Git status, prepares a bounded handoff, and queues
+**one** execution ticket. This skill is the execution side of that ticket and
+must work on **one candidate at a time**.
 
 ```text
-read packet → select one task → inspect context → plan → implement
+read execution ticket → inspect context → plan → implement
 → run narrow verification → record evidence → stop at approval gate
 ```
 
 ## Required first steps
 
-1. Read the candidate in `data/runtime/agent-loop/book-dev/latest.md` and the
-   linked context files.
+1. Read `data/runtime/agent-loop/book-dev/execution/current.md` when present.
+   If missing, fall back to the first candidate in
+   `data/runtime/agent-loop/book-dev/latest.md` and the linked context files.
 2. Confirm the exact nested repository path and run:
 
    ```bash
@@ -35,6 +39,7 @@ read packet → select one task → inspect context → plan → implement
    unrelated change. Never use `git reset`, `git clean`, or an equivalent
    destructive command.
 4. Check the task's acceptance evidence in the Book Dev catalog before editing.
+5. Do not start a second candidate while the current execution ticket is open.
 
 ## Execution boundary
 

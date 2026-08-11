@@ -7,6 +7,13 @@ description: Design, implement, and review reliable AI agent workflows for Solo 
 
 Design agent workflows that are useful, observable, bounded, and easy to recover when a tool or model fails.
 
+## Response language
+
+All human-facing workflow output must be Thai by default, including plans,
+errors, approvals, and handoffs. Preserve technical identifiers, commands,
+paths, code, logs, and quoted source text exactly. Use another language only
+when the user explicitly requests it for the requested output.
+
 ## Core workflow
 
 1. Establish context. Read the relevant current-state, architecture, and AI-agent guidance, then inspect the owning workspace and its git status.
