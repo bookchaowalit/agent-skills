@@ -29,6 +29,7 @@ runtime boundaries; do not move them here.
 ## Available skills
 
 - ai-agent-workflows — reliable agent loops, approvals, evidence, and failure handling
+- book-dev-engineering-loop — one-task Book Dev execution with repository isolation and approval gates
 - ai-agents — safe AI tool and infrastructure operation
 - ai-product-delivery — production delivery for AI products and features
 - business-analysis — requirements, traceability, UAT, and benefits handoff
@@ -42,6 +43,8 @@ runtime boundaries; do not move them here.
 ```text
 skills/
 ├── README.md
+├── book-dev-engineering-loop/
+│   └── SKILL.md
 └── skill-template/
     ├── SKILL.md
     └── agents/openai.yaml
