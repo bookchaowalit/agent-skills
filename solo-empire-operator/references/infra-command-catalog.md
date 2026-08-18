@@ -14,7 +14,7 @@ default.
 | Workspace location | `docs/WORKSPACE-STRUCTURE.md`, `docs/WORKSPACE-LOCATION-MAP.md` |
 | New ingress/import | `systems/ai-data/data-lake-architecture.md`, `learning/platform-engineering/app-cli-data-lake-playbook.md` |
 | AI/RAG/MLOps | `systems/ai-data/central-mlops-devsecops-pipeline.md`, matching `operations/` runbook |
-| Documentation change | `docs/DOCUMENTATION-STANDARDS.md`, `docs/DOC-MAINTENANCE.md` |
+| Documentation change | `docs/governance/DOCUMENTATION-STANDARDS.md`, `docs/governance/DOC-MAINTENANCE.md` |
 | External identity | `accounts/README.md`, `accounts/ACCOUNT-REGISTRY.md` |
 
 ## Short-request route matrix
