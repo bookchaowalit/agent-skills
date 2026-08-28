@@ -27,6 +27,7 @@ default.
 | Lead, CRM, outreach, sales | `crm` / `lead-research-and-crm` | CRM CLI + evidence rules |
 | Proposal, SOW, scope, pricing | `proposals` / `client-discovery-and-proposals` | discovery + proposal boundary |
 | Content, SEO, social, newsletter | `content` / `content-distribution` | content calendar + approval state |
+| Pixiu Watch / Search Console / Ahrefs report | `client-seo` / `content-distribution` | `seo:report` monthly pack; no live-site fixes |
 | Requirements, UAT, acceptance criteria | `business-analysis` / `business-analysis` | role process + traceability |
 | Unmatched or ambiguous request | `unknown` / `solo-empire-operator` | clarify before side effects |
 
@@ -73,6 +74,7 @@ npm --prefix infra run test:platform
 npm --prefix infra run test:workspace
 npm --prefix infra run test:automation
 npm --prefix infra run test:analytics
+npm --prefix infra run test:seo-report
 python3 infra/tests/security/security_test.py
 ```
 
@@ -85,6 +87,20 @@ optional daemon caused it to be skipped.
 npm --prefix infra run db:backup
 npm --prefix infra run db:verify
 npm --prefix infra run db:migrate
+npx tsx infra/cli.ts crm
+npm --prefix infra run media:stock -- --list --json
+npm --prefix infra run media:stock -- "japanese temple" --json
+npm --prefix infra run media:stock -- "japanese temple" --apply --limit 3
+npm --prefix infra run media:stock -- --pack editor --apply
+npm --prefix infra run catalog:art-pack -- --pack botanical-patterns --apply
+npm --prefix infra run sales:pipeline -- --json
+npm --prefix infra run sales:pipeline -- --apply --json --limit 5
+npm --prefix infra run seo:report -- --json
+npm --prefix infra run auth:google-search-console
+npm --prefix infra run seo:report -- fetch --month 2026-08 --json
+npm --prefix infra run seo:report -- fetch --month 2026-08 --apply --json
+npm --prefix infra run seo:report -- report --month 2026-08 --gsc export.zip --ahrefs ahrefs.json --json
+npm --prefix infra run seo:report -- report --month 2026-08 --gsc export.zip --ahrefs ahrefs.json --apply --json
 npx tsx infra/cli.ts tasks
 npx tsx infra/cli.ts tasks add --title "..."
 npx tsx infra/cli.ts tasks update <id> --status in_progress
