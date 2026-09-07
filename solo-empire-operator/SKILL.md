@@ -12,16 +12,18 @@ matching skill instead of loading every document or inventing a new command.
 ## Operating loop
 
 1. Read `dashboard/CURRENT-STATE.md` first. For code, infra, or agent work,
-   also read `docs/ARCHITECTURE.md`, `docs/AI-AGENT-GUIDE.md`, and
-   `infra/README.md`.
+   read the relevant sections of `docs/ARCHITECTURE.md`,
+   `docs/AI-AGENT-GUIDE.md`, and `infra/README.md`; use `rg`, focused `sed`
+   ranges, or the bounded operator context pack instead of loading long files
+   in full unless the task needs their complete contract.
 2. Inspect `git status --short`; preserve unrelated edits, generated files,
    backups, secrets, and nested repositories.
 3. Classify the request as `inspect`, `operate`, `change`, or `plan`, and route
    it to the smallest existing CLI, script, MCP tool, document, or child skill.
-   For a machine-readable pack, run `npm --prefix infra run agent:route --
+   For a machine-readable pack, run `task agent:route --
    "<short request>" --json`.
-   For one complete read-only decision, run `npm --prefix infra run
-   agent:operator -- "<short request>" --json`.
+   For one complete read-only decision, run `task agent:operator --
+   "<short request>" --json`.
    If the router returns `unknown` or `needs_clarification: true`, ask for the
    target domain before any side effect; never guess from the health route.
 4. Build the loop as `request → context → plan → tool → evidence → verify →
@@ -50,21 +52,21 @@ matching skill instead of loading every document or inventing a new command.
   output, latency/cost target, evaluation set, redaction rule, and rollback
   path. If those are not implemented, record them as gaps rather than hiding
   them in the prompt.
-- Record provider usage through `npm --prefix infra run agent:telemetry -- ...`
+- Record provider usage through `task agent:telemetry -- ...`
   only after the provider returns usage metadata. Keep the prompt and response
   out of telemetry.
-- Use `npm --prefix infra run agent:model -- ...` to build a provider-neutral
+- Use `task agent:model -- ...` to build a provider-neutral
   routing plan. Abstract `fast`, `balanced`, and `quality` slots can be mapped
   to a provider later; the repository currently selects the local reference
   adapter because no external provider adapter is configured.
-- Use `npm --prefix infra run agent:cache -- --stats --json` to inspect cache
+- Use `task agent:cache -- --stats --json` to inspect cache
   counters. The cache stores hashed keys and explicitly allowed
   `public/internal` results only; private or restricted data is never cached.
-- Use `npm --prefix infra run agent:local -- "..." --json` for a deterministic
+- Use `task agent:local -- "..." --json` for a deterministic
   local pipeline smoke run. It demonstrates routing, cache, token estimates,
   and telemetry without pretending to be hosted LLM generation.
 - The operator façade now includes a bounded context pack from the routed files:
-  `npm --prefix infra run agent:operator -- "..." --json`. The pack is capped
+  `task agent:operator -- "..." --json`. The pack is capped
   by file/line/byte budgets, redacts credential-shaped values, and never loads
   sensitive paths such as `.env` or credentials directories.
 
@@ -73,17 +75,21 @@ matching skill instead of loading every document or inventing a new command.
 - Agent/tool/MCP/RAG/memory/evaluation workflow → `ai-agents` or
   `ai-agent-workflows`.
 - AI application/API/automation delivery → `ai-product-delivery`.
+- Data products, lake ingestion, contracts, quality, lineage, or replay →
+  `data-engineering`.
 - Security, secrets, permissions, privacy, or boundary review →
   `security-and-privacy`.
 - Client, lead, content, or proposal work → the matching business skill.
-- New reusable agent procedure → `skill-creator`, then keep the implementation
-  in `infra/` and the reusable instruction in `skills/`.
+- Skill inventory, capability gaps, overlap, or lifecycle work →
+  `govern-ai-skills`; use `skill-creator` only after a new package is justified,
+  then keep the implementation in `infra/` and reusable instructions in
+  `skills/`.
 
 The deterministic router has explicit specialist routes for `ai-product`,
-`security`, `external-integrations`, `crm`, `proposals`, `content`,
-`business-analysis`, and `business`, in addition to health, AI pipeline, data
-lake, database, documentation, and infra. Unmatched requests use an
-`unknown` route with low confidence and a clarification stop condition.
+`security`, `external-integrations`, `skill-governance`, `crm`, `proposals`,
+`content`, `business-analysis`, and `business`, in addition to health, AI
+pipeline, data lake, database, documentation, and infra. Unmatched requests
+use an `unknown` route with low confidence and a clarification stop condition.
 
 ## Safe completion
 

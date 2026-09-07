@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Engineering & Governance"
+  short_description: "Build governed lake-first data products"
+  default_prompt: "Use $data-engineering to design or operate a governed lake-first data workflow."

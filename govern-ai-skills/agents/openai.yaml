@@ -1,0 +1,4 @@
+interface:
+  display_name: "Govern AI Skills"
+  short_description: "Audit and maintain Solo Empire AI skills"
+  default_prompt: "Use $govern-ai-skills to audit and improve the Solo Empire skill system."

@@ -76,5 +76,5 @@ Before handoff, verify:
 
 Report the artifacts created, baseline/version, approvals, evidence links,
 open risks, unresolved assumptions, tests/UAT performed, known limitations,
-and the next safe action. Run npm --prefix infra run roles:check before
+and the next safe action. Run `task roles:check` before
 declaring the role package structurally complete.

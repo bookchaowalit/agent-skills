@@ -36,15 +36,21 @@ default.
 ```bash
 git status --short
 python3 infra/scripts/utils/system_health.py --quick
-npm --prefix infra run health
-npm --prefix infra run dashboard
-npm --prefix infra run tasks
+task health
+task dashboard
+task tasks
 npx tsx infra/cli.ts skills
 npx tsx infra/cli.ts projects
-python3 infra/scripts/agent/router.py "เช็กระบบและ AI pipeline" --json
-npm --prefix infra run agent:operator -- "เช็กระบบและ AI pipeline" --json
-npm --prefix infra run agent:context -- \
+task agent:route -- "เช็กระบบและ AI pipeline" --json
+task agent:operator -- "เช็กระบบและ AI pipeline" --json
+task agent:context -- \
   dashboard/CURRENT-STATE.md docs/ARCHITECTURE.md --max-lines 80 --json
+
+# Thin human-facing facade over the same Task boundary
+./empire status
+./empire doctor
+./empire db migrate
+./empire agent run "เช็กระบบและ AI pipeline" --json
 ```
 
 Use `python3 infra/scripts/utils/system_health.py --quick` for a compact live
@@ -56,25 +62,27 @@ breakdown is needed.
 Run the smallest applicable group, then the repository baseline for changes:
 
 ```bash
-npm --prefix infra test
-npm --prefix infra run typecheck
-npm --prefix infra run docs:check
+task test
+task typecheck
+task docs:check
+task task:parity
+task task:ownership -- --json
 ```
 
 Focused checks:
 
 ```bash
-npm --prefix infra run test:mcp
-npm --prefix infra run test:api
-npm --prefix infra run test:database
-npm --prefix infra run test:data-lake
-npm --prefix infra run test:python
-npm --prefix infra run test:go
-npm --prefix infra run test:platform
-npm --prefix infra run test:workspace
-npm --prefix infra run test:automation
-npm --prefix infra run test:analytics
-npm --prefix infra run test:seo-report
+task test:mcp
+task test:api
+task test:database
+task test:data-lake
+task test:python
+task test:go
+task test:platform
+task test:workspace
+task test:automation
+task test:analytics
+task test:seo-report
 python3 infra/tests/security/security_test.py
 ```
 
@@ -84,28 +92,30 @@ optional daemon caused it to be skipped.
 ## Database and operational writes
 
 ```bash
-npm --prefix infra run db:backup
-npm --prefix infra run db:verify
-npm --prefix infra run db:migrate
+task db:backup
+task db:verify
+task db:migrate
+./empire db backup
+./empire db verify
 npx tsx infra/cli.ts crm
-npm --prefix infra run media:stock -- --list --json
-npm --prefix infra run media:stock -- "japanese temple" --json
-npm --prefix infra run media:stock -- "japanese temple" --apply --limit 3
-npm --prefix infra run media:stock -- --pack editor --apply
-npm --prefix infra run catalog:art-pack -- --pack botanical-patterns --apply
-npm --prefix infra run sales:pipeline -- --json
-npm --prefix infra run sales:pipeline -- --apply --json --limit 5
-npm --prefix infra run seo:report -- --json
-npm --prefix infra run auth:google-search-console
-npm --prefix infra run seo:report -- fetch --month 2026-08 --json
-npm --prefix infra run seo:report -- fetch --month 2026-08 --apply --json
-npm --prefix infra run seo:report -- report --month 2026-08 --gsc export.zip --ahrefs ahrefs.json --json
-npm --prefix infra run seo:report -- report --month 2026-08 --gsc export.zip --ahrefs ahrefs.json --apply --json
-npx tsx infra/cli.ts tasks
-npx tsx infra/cli.ts tasks add --title "..."
-npx tsx infra/cli.ts tasks update <id> --status in_progress
-npx tsx infra/cli.ts tasks done <id>
-npx tsx infra/cli.ts tasks sync
+task media:stock -- --list --json
+task media:stock -- "japanese temple" --json
+task media:stock -- "japanese temple" --apply --limit 3
+task media:stock -- --pack editor --apply
+task catalog:art-pack -- --pack botanical-patterns --apply
+task sales:pipeline -- --json
+task sales:pipeline -- --apply --json --limit 5
+task seo:report -- --json
+task auth:google-search-console
+task seo:report -- fetch --month 2026-08 --json
+task seo:report -- fetch --month 2026-08 --apply --json
+task seo:report -- report --month 2026-08 --gsc export.zip --ahrefs ahrefs.json --json
+task seo:report -- report --month 2026-08 --gsc export.zip --ahrefs ahrefs.json --apply --json
+task tasks
+task tasks -- add --title "..."
+task tasks -- update <id> --status in_progress
+task tasks -- done <id>
+task tasks -- sync
 ```
 
 Back up before schema or migration changes. `dashboard/TASKS.md` is a
@@ -125,15 +135,15 @@ python3 infra/scripts/mlops/pipeline.py \
   --registry-dir "$(mktemp -d)" \
   --json
 python3 infra/tests/mlops/mlops_pipeline_test.py
-npm --prefix infra run agent:telemetry -- \
+task agent:telemetry -- \
   --route ai-pipeline --provider example --model example-model \
   --input-tokens 900 --output-tokens 100 --token-budget 1200 \
   --input-rate-per-1k 0.15 --output-rate-per-1k 0.60 --record --json
-npm --prefix infra run agent:telemetry -- --stats --stats-days 30 --json
-npm --prefix infra run agent:model -- \
+task agent:telemetry -- --stats --stats-days 30 --json
+task agent:model -- \
   "ทำให้ AI pipeline ประหยัด token" --operation change --token-budget 6000 --json
-npm --prefix infra run agent:cache -- --stats --json
-npm --prefix infra run agent:local -- \
+task agent:cache -- --stats --json
+task agent:local -- \
   "ตรวจ AI pipeline แบบ local" --no-cache --json
 ```
 
@@ -158,10 +168,10 @@ metadata.
 ## CI and security gates
 
 ```bash
-npm --prefix infra run lint:secrets
-npm --prefix infra run lint:paths
-npm --prefix infra run contracts:check
-npm --prefix infra run docs:check
+task lint:secrets
+task lint:paths
+task contracts:check
+task docs:check
 ```
 
 Inspect `.github/workflows/ci.yml` when the user asks about CI/CD. Promotion

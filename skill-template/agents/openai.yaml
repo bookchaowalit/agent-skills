@@ -1,4 +1,4 @@
 interface:
   display_name: "Solo Empire Skill Template"
   short_description: "Scaffold a reusable Solo Empire AI skill"
-  default_prompt: "Use the Solo Empire skill template to create or update a reusable AI skill for this repository."
+  default_prompt: "Use $skill-template to scaffold a reusable AI skill for this repository."

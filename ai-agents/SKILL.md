@@ -23,8 +23,11 @@ artifact.
 
 ### 1. Establish context
 
-- Read `dashboard/CURRENT-STATE.md`, `docs/ARCHITECTURE.md`,
-  `docs/AI-AGENT-GUIDE.md`, and `infra/README.md` before substantial work.
+- Read `dashboard/CURRENT-STATE.md` and the relevant sections of
+  `docs/ARCHITECTURE.md`, `docs/AI-AGENT-GUIDE.md`, and `infra/README.md`
+  before substantial work. Use focused `rg`/`sed` ranges or the bounded
+  operator context pack instead of loading long documents in full unless the
+  task needs their complete contract.
 - Read the relevant `operations/` or `integrations/` document when
   the task concerns a documented platform or external integration.
 - Inspect `git status --short` and preserve unrelated user changes. Do not use
@@ -60,7 +63,7 @@ structured interface exists.
 - Keep implementation in `infra/`; do not put runtime code in this skill.
 - Use `apply_patch` for source and documentation edits.
 - Back up the database before schema or data migrations:
-  `npm --prefix infra run db:backup`.
+  `task db:backup`.
 - Keep credentials in the documented environment or secret store. Never print,
   copy, or commit values from `infra/.env`, tokens, cookies, or private data.
 - Treat `data/`, generated reports, backups, and nested repositories as separate
@@ -73,16 +76,14 @@ structured interface exists.
 Run the narrowest relevant checks, then the repository checks required for the
 change:
 
-- General changes: `npm --prefix infra test`,
-  `npm --prefix infra run typecheck`, and
-  `npm --prefix infra run docs:check`.
+- General changes: `task test`, `task typecheck`, and `task docs:check`.
 - Database changes: relevant tests under `infra/tests/`, plus
-  `npm --prefix infra run db:verify`.
-- Platform changes: `npm --prefix infra run test:platform` and the relevant
+  `task db:verify`.
+- Platform changes: `task test:platform` and the relevant
   validation scripts under `infra/platform/`.
-- MCP changes: `npm --prefix infra run test:mcp`.
-- Go task-sync or notifier changes: `npm --prefix infra run test:go`.
-- Python automation changes: `npm --prefix infra run test:python` and the
+- MCP changes: `task test:mcp`.
+- Go task-sync or notifier changes: `task test:go`.
+- Python automation changes: `task test:python` and the
   focused test for the affected workflow.
 
 If a check cannot run because an external service, credential, or local daemon

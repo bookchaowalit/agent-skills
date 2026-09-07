@@ -1,0 +1,4 @@
+interface:
+  display_name: "Book Dev Engineering Loop"
+  short_description: "Execute one bounded Book Dev task safely"
+  default_prompt: "Use $book-dev-engineering-loop to execute one bounded Book Dev ticket safely."

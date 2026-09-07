@@ -18,13 +18,20 @@ For a short or cross-cutting request, start with
 `solo-empire-operator/SKILL.md`; it selects the relevant infra command,
 repository document, and specialist skill without loading the whole system.
 
-Copy `skills/skill-template/` when creating a new skill. Skill names use
+Run `task skills:check -- --json` before deciding that a new
+package is needed. Use `govern-ai-skills` to extend an existing skill when the
+user outcome already overlaps; otherwise use the active `skill-creator`
+scaffold with `skill-template` as the repository contract. Skill names use
 lowercase letters, digits, and hyphens. Keep the body concise and put trigger
 conditions in frontmatter.
 
 These are repository-owned, provider-neutral instructions. `.claude/`,
 `.qoder/`, `.codex/`, and other dot-directories remain provider discovery and
 runtime boundaries; do not move them here.
+
+Codex discovers repository skills through `.agents/skills`. The setup script
+creates symlinks there that point back to these canonical packages, so the
+instructions have one source of truth and are not duplicated.
 
 ## Available skills
 
@@ -35,17 +42,20 @@ runtime boundaries; do not move them here.
 - business-analysis — requirements, traceability, UAT, and benefits handoff
 - client-discovery-and-proposals — qualified scope, proposal, pricing, and delivery handoff
 - content-distribution — evidence-backed content planning and measurement
+- data-engineering — governed lake-first data products, contracts, quality, lineage, and replay
+- govern-ai-skills — skill gap audit, lifecycle, routing, metadata, and context governance
 - lead-research-and-crm — lead qualification, outreach, and CRM hygiene
 - security-and-privacy — data classification, trust boundaries, and security review
+- skill-template — blank repository contract for a new provider-neutral skill
+- solo-empire-operator — bounded routing for short and cross-cutting requests
 
 ## Layout
 
 ```text
 skills/
 ├── README.md
-├── book-dev-engineering-loop/
-│   └── SKILL.md
-└── skill-template/
+└── <skill-name>/
     ├── SKILL.md
-    └── agents/openai.yaml
+    └── agents/
+        └── openai.yaml
 ```
