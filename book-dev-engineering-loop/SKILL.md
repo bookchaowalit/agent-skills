@@ -20,7 +20,8 @@ must work on **one candidate at a time**.
 
 ```text
 read execution ticket → inspect context → plan → implement
-→ run narrow verification → record evidence → stop at approval gate
+→ run narrow verification → commit → push → deploy
+→ post-deploy verify → record evidence
 ```
 
 ## Required first steps
@@ -51,12 +52,28 @@ read execution ticket → inspect context → plan → implement
 - Do not invent a test command when the repository does not document one;
   report the missing verification path instead.
 
+## Automatic release closeout
+
+The repository owner has enabled automatic release closeout for completed
+work. After narrow verification passes:
+
+1. Review the final diff and stage only files belonging to the selected task.
+2. Commit the scoped change in the selected nested repository.
+3. Push the configured upstream branch without force-push.
+4. Run the nested repository's documented deploy/release command when its
+   target and environment contract are available.
+5. Run the documented post-deploy smoke or health check and record all results.
+
+If no deployment target is documented, record
+`deployment_skipped_no_target`; do not invent a provider or command.
+
 ## Approval gates
 
 Stop and ask the owner before any of the following:
 
-- `git commit`, `git push`, merge, pull request creation, or branch deletion.
-- GitHub archive, transfer, visibility change, or release/deployment.
+- production or destructive release/deployment;
+- merge, pull request creation, branch deletion, GitHub archive, transfer, or
+  visibility change;
 - Reset, clean, overwrite, delete, credential use, spending, or external
   messages.
 - Closing a task when the evidence is incomplete or an external dependency is
@@ -71,6 +88,7 @@ Return a compact report containing:
 - task ID and repository path;
 - files changed and why;
 - exact verification commands and pass/fail output;
+- commit, push, deploy, and post-deploy verification evidence;
 - remaining blockers or unknowns;
 - whether owner approval is required for the next action.
 

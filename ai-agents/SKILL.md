@@ -107,5 +107,7 @@ is unavailable, record the exact limitation and do not hide the failure.
 ## Handoff
 
 Report the files changed, commands and tests run, important outputs or failures,
-credential/service limitations, and any follow-up task. Do not commit or push
-unless the user explicitly requests it.
+commit/push/deploy evidence, credential/service limitations, and any follow-up
+task. Follow the repository's automatic release closeout preference for scoped
+Git and documented non-production deployment actions; retain approval gates for
+production, destructive, paid, credential, and external-message actions.

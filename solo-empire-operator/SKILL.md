@@ -28,12 +28,33 @@ matching skill instead of loading every document or inventing a new command.
    target domain before any side effect; never guess from the health route.
 4. Build the loop as `request → context → plan → tool → evidence → verify →
    handoff`. Keep read-only checks separate from writes.
-5. Ask for approval before external messages, publishing, production changes,
-   spending, destructive operations, or any action requiring an unapproved
-   credential.
+5. Ask for approval before external messages, production changes, spending,
+  destructive operations, or any action requiring an unapproved credential.
+  The standing delivery preference may authorize scoped Git commit/push and a
+  documented non-production deployment, but never a protected release gate.
 6. Verify proportionally. For repository changes, run the required checks in
    the handoff and report exact warnings, unavailable services, and remaining
    gaps.
+
+## Automatic release closeout
+
+When the current owner has enabled the delivery preference in `AGENTS.md`,
+finish every changed repository with this sequence after focused verification:
+
+1. Inspect the final diff and stage only the intended files; never use
+  `git add .` across unrelated work.
+2. Create a scoped `git commit` with a meaningful message.
+3. Push the current branch to its configured upstream without force-push.
+4. Run the repository's documented deploy/release command when a target,
+  credentials, and environment contract are present.
+5. Run the documented post-deploy smoke or health check and record the commit,
+  push, deploy, and verification evidence.
+
+Stop and report if verification fails, the upstream is missing, the deploy
+target is absent (`deployment_skipped_no_target`), credentials are unavailable,
+or the action would change production, spend money, send an external message,
+or perform a destructive/irreversible operation. Never guess a deploy command
+or silently treat a skipped deployment as a successful release.
 
 ## Context and token policy
 
@@ -93,8 +114,8 @@ use an `unknown` route with low confidence and a clarification stop condition.
 
 ## Safe completion
 
-Return: outcome, files changed, commands/tests run, evidence, approval points,
-known failures or service limitations, and the next safe action. Do not commit
-or push unless explicitly requested. Do not log secrets or raw private
-payloads. Read `references/infra-command-catalog.md` for the command matrix and
-pipeline sequence.
+Return: outcome, files changed, commands/tests run, evidence, commit/push/deploy
+status, approval points, known failures or service limitations, and the next
+safe action. Do not log secrets or raw private payloads. Read
+`references/infra-command-catalog.md` for the command matrix and pipeline
+sequence.
