@@ -38,6 +38,7 @@ instructions have one source of truth and are not duplicated.
 - ai-agent-workflows — reliable agent loops, approvals, evidence, and failure handling
 - book-dev-engineering-loop — one-task Book Dev execution with repository isolation and approval gates
 - ai-agents — safe AI tool and infrastructure operation
+- ai-native-estimation — module decomposition, parallel AI workstreams, wait-aware delivery ranges, critical path, and calibration
 - ai-product-delivery — production delivery for AI products and features
 - business-analysis — requirements, traceability, UAT, and benefits handoff
 - client-discovery-and-proposals — qualified scope, proposal, pricing, and delivery handoff

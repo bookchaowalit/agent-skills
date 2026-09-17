@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI-Native Estimation"
+  short_description: "Estimate AI-assisted delivery with calibrated ranges"
+  default_prompt: "Use $ai-native-estimation to decompose modules, ask staged readiness questions, plan parallel AI workstreams, model waits and critical path, and report calibrated P50, P80, and P95 delivery ranges."
