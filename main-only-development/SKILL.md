@@ -7,9 +7,12 @@ description: Use when a development session starts or performs Git work in the t
 
 ## Overview
 
-Keep the top-level Solo Empire repository on `main`, with `origin/main` as its
-only remote branch. This policy does not apply to nested repositories; follow
-their own instructions and preserve their independent Git boundaries.
+Start development in the top-level Solo Empire repository on `main` and keep
+working there. Merging is a one-time cleanup for non-main branches that already
+exist; it restores the intended state and is not the normal development flow.
+After cleanup, continue every new task directly on `main`. This policy does not
+apply to nested repositories; follow their own instructions and preserve their
+independent Git boundaries.
 
 ## Workflow
 
@@ -23,14 +26,14 @@ their own instructions and preserve their independent Git boundaries.
 2. After the inventory, run `git fetch origin --prune` when the remote is
    reachable so remote-tracking refs are current. Pruning removes stale local
    tracking refs; it does not delete branches from `origin`.
-3. Keep the root checkout on `main`. If another branch is checked out, switch
-   only after step 1 confirms its work is safe and retained. Do not create
-   feature branches or extra worktrees for ordinary development. Work directly
-   on `main` and commit only the scoped files.
-4. If another branch exists, inspect its commits and file changes against
-   `main`. Integrate changes that belong in this repository, resolve conflicts
-   by preserving both intended changes, then verify its intended changes are
-   present in `main` before removing its local or `origin` ref. Check commit
+3. Start new work on `main`. If an existing session is on another branch,
+   switch only after step 1 confirms its work is safe and retained. Do not
+   create feature branches or extra worktrees for ordinary development; commit
+   only scoped files on `main`.
+4. Treat any non-main branch already present as cleanup. Inspect its commits
+   and file changes against `main`, integrate the intended changes once, and
+   resolve conflicts by preserving both intended changes. Verify the changes
+   are present in `main` before removing the local or `origin` ref; check commit
    ancestry for regular merges and patch content for squash or cherry-pick.
 5. Treat staged, unstaged, untracked, ignored, stashed, and other-worktree
    changes as separate work from branch commits. Preserve them. If switching,
@@ -39,7 +42,8 @@ their own instructions and preserve their independent Git boundaries.
 6. Push only `main` to `origin` when the scoped changes are ready and the
    repository's approval and verification requirements are satisfied. If
    branch protection or a required review workflow conflicts with main-only
-   development, explain the conflict before creating a temporary branch.
+   development, stop and explain the conflict before creating any temporary
+   branch or pull request flow.
 
 ## Decision rules
 
