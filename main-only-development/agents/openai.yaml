@@ -1,0 +1,4 @@
+interface:
+  display_name: "Main-only Development"
+  short_description: "Keep Solo Empire Git work on main"
+  default_prompt: "Use $main-only-development for Git work in the Solo Empire root repository."

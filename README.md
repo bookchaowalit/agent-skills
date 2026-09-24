@@ -46,6 +46,7 @@ instructions have one source of truth and are not duplicated.
 - data-engineering — governed lake-first data products, contracts, quality, lineage, and replay
 - govern-ai-skills — skill gap audit, lifecycle, routing, metadata, and context governance
 - lead-research-and-crm — lead qualification, outreach, and CRM hygiene
+- main-only-development — keep the Solo Empire root repository on main and safely integrate extra refs
 - security-and-privacy — data classification, trust boundaries, and security review
 - skill-template — blank repository contract for a new provider-neutral skill
 - solo-empire-operator — bounded routing for short and cross-cutting requests
