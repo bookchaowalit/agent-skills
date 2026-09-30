@@ -1,6 +1,6 @@
 ---
 name: ai-agent-workflows
-description: Design, implement, and review reliable AI agent workflows for Solo Empire, including tool routing, structured outputs, memory, retrieval, evaluations, approvals, scheduled automation, and safe failure handling. Use when building or improving an agent that connects user requests to repository tools or external services.
+description: Design and evaluate reliable AI agent workflows for Solo Empire, including agent loops, tool routing, structured outputs, memory, retrieval/RAG, evaluations, approvals, scheduled automation, and safe failure handling. Use when designing, improving, or reviewing how an agent reasons and routes work. Not for operating specific Solo Empire tools, MCP servers, CLI, or infra integrations — use ai-agents.
 ---
 
 # AI Agent Workflows

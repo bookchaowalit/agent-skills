@@ -1,6 +1,6 @@
 ---
 name: ai-agents
-description: Build and operate AI agents that use Solo Empire tools safely. Use when a task involves agent workflows, tool selection, MCP tools, CLI automation, structured tool results, agent memory, RAG, AI logs, or connecting AI behavior to the Solo Empire infrastructure layer.
+description: Operate Solo Empire tools safely from an AI agent, including MCP servers, CLI automation, Task commands, structured tool results, AI logs, and infrastructure-layer integrations. Use when wiring or running an agent against existing Solo Empire tools or infra. Not for designing or evaluating agent loops, RAG, or memory — use ai-agent-workflows.
 ---
 
 # AI Agents — Solo Empire

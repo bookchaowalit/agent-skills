@@ -1,6 +1,6 @@
 ---
 name: skill-template
-description: Create or update a portable Solo Empire AI skill package. Use when adding a new reusable AI workflow, domain-specific operating procedure, tool integration guide, or deterministic helper for this repository.
+description: Scaffold-only starting template for a new portable Solo Empire AI skill package; copy it into skills/<name>/ and fill in the placeholders. Use only when you need the blank SKILL.md structure. Not for auditing, de-duplicating, updating, retiring, or validating skills — use govern-ai-skills.
 ---
 
 # [Skill name]

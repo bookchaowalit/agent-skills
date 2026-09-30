@@ -1,4 +1,4 @@
 interface:
   display_name: "AI Agents — Solo Empire"
-  short_description: "Build AI agents with safe Solo Empire tools"
+  short_description: "Operate Solo Empire tools, MCP, and CLI safely"
   default_prompt: "Use $ai-agents to design or operate an AI agent with Solo Empire tools safely."
