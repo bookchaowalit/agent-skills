@@ -6,7 +6,9 @@ description: Execute one bounded Book Dev task from the daily engineering-loop h
 # Book Dev Engineering Loop
 
 Use this skill when an AI agent is asked to act on the Book Dev engineering
-loop. Prefer the single-candidate execution ticket first:
+loop. The dispatcher can hand a ticket to Grok, Codex, or Claude Code
+(`task book-dev:dispatch:{grok,codex,claude}`); every provider runs under the
+same repository hooks and sub-agent roles. Prefer the single-candidate execution ticket first:
 
 - `data/runtime/agent-loop/book-dev/execution/current.md`
 - fallback queue: `data/runtime/agent-loop/book-dev/latest.md`
