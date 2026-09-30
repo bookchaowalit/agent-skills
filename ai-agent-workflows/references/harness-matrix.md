@@ -34,6 +34,12 @@ interactive Codex session (Codex stores the reviewed hook hash). Re-review
 after `.codex/hooks.json` changes. Never enable `bypass_hook_trust` to skip
 that review. Copilot hooks need the Copilot CLI or cloud agent.
 
+Copilot CLI also loads `.claude/settings.json` hooks and runs them in
+PowerShell on Windows, while Claude Code runs them in bash. The Claude hook
+commands are therefore a single-quoted `python3 -c` program that parses in
+both shells and exits quietly when `CLAUDE_PROJECT_DIR` is unset, so the
+policy runs once per harness instead of twice under Copilot.
+
 Grok is a dispatch target through `task book-dev:dispatch:grok`. Qoder reads
 the same instructions through `.qoder/README.md`.
 
