@@ -26,6 +26,14 @@ copy.
 | Profiles | project settings + local `settings.local.json` | `solo-audit` / `solo-write` profiles | role `tools` lists |
 | UI design check | impeccable skill | impeccable hook | impeccable hook |
 
+Roles: explorer, implementer, debugger, reviewer, security, data, and
+ui-verifier. Only implementer and debugger can edit; the rest are read-only.
+
+Codex loads project hooks only after the owner trusts each hook in an
+interactive Codex session (Codex stores the reviewed hook hash). Re-review
+after `.codex/hooks.json` changes. Never enable `bypass_hook_trust` to skip
+that review. Copilot hooks need the Copilot CLI or cloud agent.
+
 Grok is a dispatch target through `task book-dev:dispatch:grok`. Qoder reads
 the same instructions through `.qoder/README.md`.
 

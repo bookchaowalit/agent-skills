@@ -9,7 +9,7 @@ Every sub-agent returns one JSON object with this contract:
 ```json
 {
   "contract": "solo-empire.subagent-handoff.v1",
-  "role": "explorer|implementer|debugger|reviewer",
+  "role": "explorer|implementer|debugger|reviewer|security|data|ui-verifier",
   "status": "complete|blocked|needs_parent",
   "scope": "short description of the assigned slice",
   "summary": "one concise outcome",
@@ -31,8 +31,11 @@ The JSON must not contain credentials, tokens, cookies, raw private payloads, or
 - `implementer`: `implementation`, `verification`
 - `debugger`: `reproduction`, `hypothesis`, `root_cause`, `fix`, `verification`
 - `reviewer`: `findings`, `disposition`, `residual_risks`
+- `security`: `findings`, `exposure_paths`, `disposition`
+- `data`: `findings`, `contracts_checked`, `disposition`
+- `ui-verifier`: `observations`, `reproduction`, `disposition`
 
-Reviewer findings should include `severity`, `path`, `line` when available, `impact`, and `recommendation`. Verification entries must distinguish a passed check from an unavailable or skipped check.
+Security findings name the exposed path and kind of exposure, never the secret value. Reviewer, security, and data findings should include `severity`, `path`, `line` when available, `impact`, and `recommendation`. Verification entries must distinguish a passed check from an unavailable or skipped check.
 
 ## Stop conditions
 
