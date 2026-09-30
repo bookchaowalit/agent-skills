@@ -50,6 +50,7 @@ instructions have one source of truth and are not duplicated.
 - security-and-privacy — data classification, trust boundaries, and security review
 - skill-template — blank repository contract for a new provider-neutral skill
 - solo-empire-operator — bounded routing for short and cross-cutting requests
+- unused-file-cleanup — read-only scan for unreferenced files, verification, and approved scoped removal
 
 ## Layout
 

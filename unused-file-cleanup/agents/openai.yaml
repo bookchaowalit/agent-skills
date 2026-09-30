@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unused File Cleanup"
+  short_description: "Find and safely retire unreferenced repo files"
+  default_prompt: "Use $unused-file-cleanup to find unused files and propose a safe cleanup."

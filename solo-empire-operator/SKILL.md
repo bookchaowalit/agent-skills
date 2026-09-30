@@ -101,13 +101,15 @@ or silently treat a skipped deployment as a successful release.
 - Security, secrets, permissions, privacy, or boundary review →
   `security-and-privacy`.
 - Client, lead, content, or proposal work → the matching business skill.
+- Unused, dead, or orphaned files → `unused-file-cleanup` (read-only scan
+  first; deletion only after approval).
 - Skill inventory, capability gaps, overlap, or lifecycle work →
   `govern-ai-skills`; use `skill-creator` only after a new package is justified,
   then keep the implementation in `infra/` and reusable instructions in
   `skills/`.
 
 The deterministic router has explicit specialist routes for `ai-product`,
-`security`, `external-integrations`, `skill-governance`, `crm`, `proposals`,
+`security`, `external-integrations`, `skill-governance`, `unused-cleanup`, `crm`, `proposals`,
 `content`, `business-analysis`, and `business`, in addition to health, AI
 pipeline, data lake, database, documentation, and infra. Unmatched requests
 use an `unknown` route with low confidence and a clarification stop condition.
