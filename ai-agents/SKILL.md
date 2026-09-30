@@ -52,10 +52,9 @@ request → agent instructions → tool selection → infra operation → struct
 | Local services and homelab | `infra/self-hosted-stack/` |
 | System-wide verification | `infra/tests/` and `infra/package.json` |
 
-Prefer the narrowest existing command or script. Use MCP tools when an MCP
-server is connected and the task is an AI-facing database operation; otherwise
-use the documented local CLI or script. Keep tool inputs explicit and bounded,
-and use structured results rather than scraping human-formatted output when a
+Follow the tool-selection and context-efficiency policy in
+`skills/ai-agent-workflows/SKILL.md`. Keep inputs explicit and bounded, and use
+structured results rather than scraping human-formatted output when a
 structured interface exists.
 
 ### 3. Make the change safely

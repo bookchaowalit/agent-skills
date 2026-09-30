@@ -14,6 +14,32 @@ errors, approvals, and handoffs. Preserve technical identifiers, commands,
 paths, code, logs, and quoted source text exactly. Use another language only
 when the user explicitly requests it for the requested output.
 
+## Tool selection and context efficiency
+
+Choose one best interface for the source and action before calling tools. Do
+not call each available interface in sequence just to compare them. Switch only
+when the chosen interface is unavailable, cannot perform the action, or returns
+materially incomplete or unusable results.
+
+For Solo Empire local data and deterministic operations, prefer the narrowest
+existing CLI, script, or database query that returns bounded structured output
+(`--json` when available). Prefer a purpose-built MCP/API when it is the direct
+supported interface for the target service or gives a tighter schema,
+permission boundary, or result scope. Tool order is a tie-breaker only after
+checking source of truth, authorization, result shape, and the context each call
+adds; CLI is not automatically cheaper than MCP.
+
+For public current information, use Web Search and open only relevant pages.
+Use browser UI for signed-in or site-specific interactions and repeatable
+browser tests when no direct API, CLI, or MCP covers the task. Use screenshots
+or Computer Use only for visual-only state.
+
+Reduce context tokens by bounding fields, records, page text, and command output
+before each call. Summarize relevant evidence instead of repeating full
+responses, and avoid screenshots or full page trees when text is enough. This
+limits context use but does not guarantee lower provider billing; tool schemas,
+caching, and provider accounting vary by client.
+
 ## Core workflow
 
 1. Establish context. Read the relevant current-state, architecture, and AI-agent guidance, then inspect the owning workspace and its git status.
