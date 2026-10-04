@@ -17,7 +17,7 @@ copy.
 | Capability | Claude Code | Codex CLI | GitHub Copilot | Gemini CLI |
 | --- | --- | --- | --- | --- |
 | Instructions | `CLAUDE.md` imports `@AGENTS.md` | `AGENTS.md` | `AGENTS.md` | `.gemini/settings.json` `context.fileName: ["AGENTS.md"]` |
-| Skills | `.claude/skills/` (local links) | `.agents/skills/` (local links) | `.github/skills/` | `.agents/skills/` (local links) |
+| Skills | `.claude/skills/` (local links), role `skills` preload | `.agents/skills/` (local links) | CLI: `.github/skills/`, `.agents/skills/`, `.claude/skills/`; verify cloud/IDE discovery separately | `.agents/skills/` (local links) |
 | Sub-agents | `.claude/agents/solo-*.md` (generated) | `.codex/agents/solo_*.toml` (generated) | `.github/agents/solo-*.agent.md` | `.gemini/agents/solo-*.md` (generated) |
 | Hooks | `.claude/settings.json` via `harness_hooks.py --harness claude` | `.codex/hooks.json` via `harness_hooks.py --harness codex` | `.github/hooks/solo-empire-lifecycle.json` | `.gemini/settings.json` via `harness_hooks.py --harness gemini` |
 | Project MCP | `.mcp.json` (`solo-empire`, approval per server) | user `~/.codex/config.toml` from setup | client config | `.gemini/settings.json` `mcpServers` |
@@ -30,6 +30,19 @@ copy.
 
 Roles: explorer, implementer, debugger, reviewer, security, data, and
 ui-verifier. Only implementer and debugger can edit; the rest are read-only.
+Copilot role sources opt into repository instructions with
+`include-custom-instructions: true`. Claude preloads the registry's skill list
+without enabling persistent memory writes. The main agent owns diary, durable
+memory updates, final verification, and release actions.
+
+Codex uses a read-only sandbox for audit roles. Claude hooks recognize native
+`agent_type` metadata and limit audit-role shell calls to a narrow inspection
+allowlist; verification scripts and browser runners go through the parent.
+Gemini explicitly loads `infra/scripts/agent/policies/gemini-read-only.toml`
+through `policyPaths`, denying shell and file-mutation tools to audit roles.
+Workspace `.gemini/policies` auto-discovery is disabled in the current native
+implementation; placing a file there alone is not enforcement. Verify policy
+loading on the installed Gemini version before claiming native enforcement.
 
 Skill discovery folders are gitignored, machine-local symlinks to `skills/`.
 Run `task skills:link` after cloning or after adding or removing a skill
@@ -55,13 +68,15 @@ policy runs once per harness instead of twice under Copilot.
 
 Grok is a dispatch target through `task book-dev:dispatch:grok`. Qoder reads
 the same instructions through `.qoder/README.md`.
+Grok dispatch uses `--no-subagents`; its support level differs from the four
+native role mappings above.
 
 ## Engineering loop
 
 ```text
 book-dev:loop (deterministic scan) → execution ticket
   → book-dev:dispatch:{grok,codex,claude}
-  → harness session with shared hooks + sub-agents
+  → supported harness hooks + native roles (Grok: no sub-agents)
   → focused checks → commit → push → documented deploy → evidence
 ```
 
@@ -71,6 +86,48 @@ book-dev:loop (deterministic scan) → execution ticket
   then `task subagents:check` (regenerates Claude, Codex, and Gemini agents).
 - After adding, renaming, or retiring a skill: `task skills:link`.
 - After changing the policy engine or an adapter: `task test:agent`.
+- CI runs `task test:agent` and the offline shared evaluation on Linux and Windows.
 - Gate mode: `SOLO_EMPIRE_HOOK_GATE=focused` (default), `strict`, or `off`.
 - Hook runtime records stay under `data/runtime/agent-hooks/` and are never
   committed. They hold event metadata only, never prompt text or command output.
+
+## Context, evaluation, and actual handoffs
+
+The operator prioritizes the routed child skill and required contracts inside
+the existing context budget. `context_selections` select Markdown sections or
+line ranges; each included file reports source ranges in `provenance`.
+`required_context_missing` and `summary.required_context_complete` distinguish
+partial context from a complete input. A missing required contract is a reason
+to read the named source before execution, not to silently increase the budget.
+
+Run `task agent:evaluate -- --json` for local contract checks. This calls shared
+implementations with synthetic inputs and temporary hook state, never providers.
+The offline entrypoint does not load live configuration or open the database.
+Its timings measure local checks, not model latency or intelligence.
+
+Run `task agent:evaluate -- --cases` to export six shared synthetic tasks for
+Claude, Codex, Copilot, and Gemini. A separately approved native run can submit
+observations using `task agent:evaluate -- --runs-file /absolute/run.json --json`.
+The file is a bounded JSON list of records with `harness`, semantic `version`,
+`run_id`, and `cases`. Every case supplies `id` and structured `output`;
+`latency_ms` is optional. `total_tokens` is optional and must come from actual
+usage metadata. Missing, duplicate, unknown, or incorrect cases fail. Unknown
+usage stays `null`. Reports omit outputs and hash run identifiers.
+
+Submitted scores have `evidence_level: submitted_observations` and
+`native_execution_verified: false`: the evaluator cannot establish their
+provenance. Never present a fixture score as a provider-backed quality result.
+Provider runs retain their existing approval, privacy, and spending boundaries.
+
+Before integrating a child's report, run
+`task subagents:handoff:check -- --handoff-file /absolute/handoff.json --role reviewer`.
+The validator checks the actual envelope, role-specific fields, test statuses,
+workspace-relative paths, and empty `files_changed` for read-only roles. It
+returns only validation metadata and exits nonzero for an invalid payload.
+Native `subagentStop` reminders alone do not prove that this check happened.
+
+Native references: [Claude hooks](https://code.claude.com/docs/en/hooks),
+[Claude skill preloading](https://code.claude.com/docs/en/sub-agents#preload-skills-into-subagents),
+[Copilot CLI customization](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference),
+[Gemini policies](https://geminicli.com/docs/reference/policy-engine/), and
+[Gemini settings](https://geminicli.com/docs/reference/configuration/).
