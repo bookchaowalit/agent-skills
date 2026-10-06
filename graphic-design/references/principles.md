@@ -17,6 +17,10 @@ layout, `score` = part of the 0-100 design score in `aesthetics.py`,
   Give the number, date, or place its own visual weight. *(human)*
 - **The action looks pressable.** CTA as a button shape or a clearly separated
   line, near the end of the read order, never competing with the headline.
+- **Labels sit in the optical middle of their button or tag.** Center by the
+  visible glyphs, not the line box: digits start far below the ascender, Thai
+  tone marks rise above it. *(automatic: `box_text.py` re-centers every label
+  on a button, tag, or chip after compile; panels holding a stack are left alone)*
 
 ## 2. Hierarchy and scale
 
@@ -48,7 +52,9 @@ layout, `score` = part of the 0-100 design score in `aesthetics.py`,
   - No uppercase, and no wide letter spacing on Thai, because Thai script has
     no case and tracking breaks word shapes. Latin may use caps and tracking.
   - Line breaks fall between words (PyThaiNLP segmentation), never mid-word,
-    and never leave a lone fragment. Loanwords such as "ดริป" stay whole.
+    and never leave a lone fragment. Loanwords such as "ดริป" stay whole. When a
+    word is wider than its box, the text shrinks until the word fits; a word is
+    cut only when even the minimum size cannot hold it. *(automatic: `fit_text`)*
   - Every Thai glyph needs a Thai-capable font (Kanit, Mitr, Prompt, Sarabun,
     Trirong, Anuphan …); Latin display faces fall back per glyph.
   - Cropped or bleeding giant Thai words lose their shape. Use bleed only for
