@@ -1,0 +1,4 @@
+interface:
+  display_name: "Graphic Design"
+  short_description: "Design principles, art styles, and critique for graphics"
+  default_prompt: "Use $graphic-design to brief, compose, and critique this graphic with clear design principles."
