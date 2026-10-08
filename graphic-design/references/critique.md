@@ -17,7 +17,9 @@ price in ink and keep the accent on the headline word."
 | Not a near-copy of recent work | layout memory, similarity ≥ 0.8 | hard |
 | Labels optically centered on buttons/tags | `box_text.py` after compile | automatic fix |
 | Thai words kept whole (shrink before cutting) | `fit_text` | automatic fix |
-| Design score 0–100 (hierarchy, whitespace, balance, alignment, margins, rhythm, density, color, focus) | `compose` summary, eval reports | ranks options |
+| Logo has clear space, is not covered, stays readable | `logo_crowded`, `logo_covered`, plate | hard / automatic fix |
+| Cut-outs only for photos that cut cleanly | `cutout_suitability` | automatic fix (framed instead) |
+| Design score 0–100 (hierarchy, whitespace, balance, alignment, margins, rhythm, density, color, focus, spread) | `compose` summary, eval reports | ranks options |
 
 A layout can pass every gate and still be wrong. Do not stop at section A.
 

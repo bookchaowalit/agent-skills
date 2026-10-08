@@ -92,6 +92,8 @@ layout, `score` = part of the 0-100 design score in `aesthetics.py`,
   mass should not drift to an edge by accident. *(score: balance)*
 - **Proximity groups meaning.** Things that belong together sit together
   (price next to product, date next to place); unrelated things get space.
+- **No dead bands.** A tall story with all content in its top half reads as
+  unfinished; spread the stack or enlarge the hero. *(score: spread)*
 - **Rhythm.** Repeated gaps between stacked texts share a unit; random gaps
   look accidental. *(score: rhythm)*
 - **Reading paths.** Z pattern for sparse posters (top-left → top-right →
@@ -110,6 +112,12 @@ layout, `score` = part of the 0-100 design score in `aesthetics.py`,
   subject is shown whole.
 - **Photos never cover text.** *(check: covered_text)* When text must sit on a
   photo, add a fade, a solid panel, or pick a calm area of the photo.
+- **Cut out only what cuts cleanly.** A sticker cut-out works for one subject
+  on a background (a product, a pet, a person from the waist up). A tiny subject
+  in a wide scene, several separate people, or a subject the frame already crops
+  at the top or sides looks broken as a cut-out: frame it instead. *(automatic:
+  `cutout_suitability` in `image_fx.py`; the composer then frames the photo and
+  skips cut-out-only ideas)*
 - **Cut-outs create depth.** A cut-out subject in front of a giant word (word
   behind the head) adds depth cheaply. Add an outline or a soft shadow so it
   doesn't look pasted.
@@ -155,8 +163,12 @@ layout, `score` = part of the 0-100 design score in `aesthetics.py`,
 
 ## 10. Brand and ethics
 
-- Logo clear space ≈ the height of the logo's x-height; never stretched or
-  recolored outside the brand rules.
+- **Logo:** one per graphic, in a corner, about 7% of the short side tall, with
+  clear space of ~40% of its height that no text enters; the same corner across
+  a campaign. When a quarter or more of the logo would vanish into the
+  background (or it sits on a photo), it gets a small white or near-black plate.
+  Never stretched or recolored outside the brand rules. *(automatic: `--logo`,
+  `logo_position`; checks `logo_crowded`, `logo_covered`)*
 - No imitation of another brand's identity, no protected emblems, no fake
   reviews, prices, or claims the client cannot prove.
 - Accessibility: contrast, readable sizes, and alt text when posting.
