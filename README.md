@@ -36,10 +36,10 @@ instructions have one source of truth and are not duplicated.
 ## Available skills
 
 - ai-agent-workflows — reliable agent loops, approvals, evidence, and failure handling
-- book-dev-engineering-loop — one-task Book Dev execution with repository isolation and approval gates
 - ai-agents — safe AI tool and infrastructure operation
 - ai-native-estimation — module decomposition, parallel AI workstreams, wait-aware delivery ranges, critical path, and calibration
 - ai-product-delivery — production delivery for AI products and features
+- book-dev-engineering-loop — one-task Book Dev execution with repository isolation and approval gates
 - business-analysis — requirements, traceability, UAT, and benefits handoff
 - client-discovery-and-proposals — qualified scope, proposal, pricing, and delivery handoff
 - content-distribution — evidence-backed content planning and measurement
@@ -48,9 +48,13 @@ instructions have one source of truth and are not duplicated.
 - graphic-design — design principles, art style vocabulary, and critique checklist for graphics and campaigns
 - lead-research-and-crm — lead qualification, outreach, and CRM hygiene
 - main-only-development — keep the Solo Empire root repository on main and safely integrate extra refs
+- product-management — PRD, roadmap, success metrics, screen inventory, and user flows
+- qa-testing — test strategy, test cases, UAT scripts, and quality evidence
 - security-and-privacy — data classification, trust boundaries, and security review
 - skill-template — blank repository contract for a new provider-neutral skill
 - solo-empire-operator — bounded routing for short and cross-cutting requests
+- solution-architecture — SA architecture, ADRs, NFRs, API/data TRD, and runbooks
+- system-docpack — tiered per-system document packs and PDFs across the portfolio
 - unused-file-cleanup — read-only scan for unreferenced files, verification, and approved scoped removal
 
 ## Layout

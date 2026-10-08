@@ -1,0 +1,4 @@
+interface:
+  display_name: "Solution Architecture"
+  short_description: "SA architecture, ADR, NFR, TRD, and runbooks"
+  default_prompt: "Use $solution-architecture to document or review a system's architecture, NFRs, TRD, and runbook."

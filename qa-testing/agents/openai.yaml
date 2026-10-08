@@ -1,0 +1,4 @@
+interface:
+  display_name: "QA and Testing"
+  short_description: "Test strategy, test cases, UAT, and evidence"
+  default_prompt: "Use $qa-testing to plan tests and UAT and link results to requirements."

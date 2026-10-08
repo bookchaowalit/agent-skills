@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Docpack"
+  short_description: "Tiered per-system doc packs and PDFs"
+  default_prompt: "Use $system-docpack to check, complete, and build the document pack for a portfolio system."
