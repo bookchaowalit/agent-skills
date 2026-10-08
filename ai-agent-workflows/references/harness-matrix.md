@@ -21,8 +21,8 @@ copy.
 | Sub-agents | `.claude/agents/solo-*.md` (generated) | `.codex/agents/solo_*.toml` (generated) | `.github/agents/solo-*.agent.md` | `.gemini/agents/solo-*.md` (generated) |
 | Hooks | `.claude/settings.json` via `harness_hooks.py --harness claude` | `.codex/hooks.json` via `harness_hooks.py --harness codex` | `.github/hooks/solo-empire-lifecycle.json` | `.gemini/settings.json` via `harness_hooks.py --harness gemini` |
 | Project MCP | `.mcp.json` (`solo-empire`, approval per server) | user `~/.codex/config.toml` from setup | client config | `.gemini/settings.json` `mcpServers` |
-| Destructive command | `ask` (human approval prompt); auto-`allow` in `bypassPermissions` unless `SOLO_EMPIRE_HOOK_BYPASS_ASK=prompt` | `deny` (Codex has no hook `ask`) | `deny` | `deny` (`BeforeTool` has no `ask`) |
-| Secret paths | `deny` | `deny` | `deny` | `deny` |
+| Destructive command | `ask` (human approval prompt); `allow` in `bypassPermissions` unless `SOLO_EMPIRE_HOOK_BYPASS=enforce` | `deny` (Codex has no hook `ask`) | `deny` | `deny` (`BeforeTool` has no `ask`) |
+| Secret paths | `deny`; `allow` in `bypassPermissions` unless `SOLO_EMPIRE_HOOK_BYPASS=enforce` | `deny` | `deny` | `deny` |
 | Completion gate | `Stop` hook, honours `stop_hook_active` | `Stop` hook | `agentStop` hook | `AfterAgent` hook (`deny` retries the turn) |
 | Headless loop dispatch | `task book-dev:dispatch:claude` (`claude -p`, tool allowlist) | `task book-dev:dispatch:codex` (`codex exec`, sandbox) | not a dispatch target | not a dispatch target |
 | Profiles | project settings + local `settings.local.json` | `solo-audit` / `solo-write` profiles | role `tools` lists | role `tools` lists |
