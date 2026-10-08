@@ -19,6 +19,7 @@ copy.
 | Instructions | `CLAUDE.md` imports `@AGENTS.md` | `AGENTS.md` | `AGENTS.md` | `.gemini/settings.json` `context.fileName: ["AGENTS.md"]` |
 | Skills | `.claude/skills/` (local links), role `skills` preload | `.agents/skills/` (local links) | CLI: `.github/skills/`, `.agents/skills/`, `.claude/skills/`; verify cloud/IDE discovery separately | `.agents/skills/` (local links) |
 | Sub-agents | `.claude/agents/solo-*.md` (generated) | `.codex/agents/solo_*.toml` (generated) | `.github/agents/solo-*.agent.md` | `.gemini/agents/solo-*.md` (generated) |
+| Sub-agent model | `claude_model` in `roles.yaml`: `haiku` for explorer/data/ui-verifier; other roles inherit the orchestrator (Opus) | profile default | client default | client default |
 | Hooks | `.claude/settings.json` via `harness_hooks.py --harness claude` | `.codex/hooks.json` via `harness_hooks.py --harness codex` | `.github/hooks/solo-empire-lifecycle.json` | `.gemini/settings.json` via `harness_hooks.py --harness gemini` |
 | Project MCP | `.mcp.json` (`solo-empire`, approval per server) | user `~/.codex/config.toml` from setup | client config | `.gemini/settings.json` `mcpServers` |
 | Destructive command | `ask` (human approval prompt); `allow` in `bypassPermissions` unless `SOLO_EMPIRE_HOOK_BYPASS=enforce` | `deny` (Codex has no hook `ask`) | `deny` | `deny` (`BeforeTool` has no `ask`) |
