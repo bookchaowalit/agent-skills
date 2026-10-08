@@ -54,6 +54,7 @@ instructions have one source of truth and are not duplicated.
 - skill-template — blank repository contract for a new provider-neutral skill
 - solo-empire-operator — bounded routing for short and cross-cutting requests
 - solution-architecture — SA architecture, ADRs, NFRs, API/data TRD, and runbooks
+- subagent-orchestration — Opus goal/task/subtask planning, Haiku/Opus routing, detailed delegation briefs, and review-fix loop
 - system-docpack — tiered per-system document packs and PDFs across the portfolio
 - unused-file-cleanup — read-only scan for unreferenced files, verification, and approved scoped removal
 

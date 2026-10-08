@@ -1,0 +1,4 @@
+interface:
+  display_name: "Subagent Orchestration"
+  short_description: "Plan goal/task/subtask and brief sub-agents"
+  default_prompt: "Use $subagent-orchestration to break this request into goal, tasks, and subtasks and delegate with detailed briefs."
