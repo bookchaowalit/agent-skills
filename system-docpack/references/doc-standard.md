@@ -11,11 +11,15 @@ both in sync.
 
 | Tier | Use for | Required doc types |
 |---|---|---|
+| L0 Card | Every personal Book Dev repository by default | product-card |
 | L1 Lite | Internal tools and single-owner apps | overview, prd, architecture, nfr-security, runbook |
 | L2 Standard | Our public website and small client/internal systems | L1 + srs, ux-flows, test-uat, rtm |
 | L3 Full | Paid client systems with acceptance or handover | L2 + business-case, business-flow, business-rules-data, trd-api-data, delivery-raid, decisions-glossary |
 
-A system may exceed its tier. Do not inflate a tier with placeholder text: a
+Personal repositories under `projects/product/engineering/book-dev/github/`
+are discovered automatically and always need a `product-card`; a repository
+whose card verdict is `invest` is promoted to L1+ through `tier_overrides` in
+the registry. A system may exceed its tier. Do not inflate a tier with placeholder text: a
 short document grounded in evidence beats a long invented one.
 
 ## Pack layout
@@ -44,6 +48,34 @@ color: "#1f4e79"               # brand colour (hex)
 audience: client               # client | internal
 tier: L3
 ```
+
+## Product Card (L0)
+
+`DOCPACK/00-product-card.md`, one page, answers "is this a product with value,
+and what happens next?" Write it from `infra/scripts/docpack/repo_facts.py`
+output plus the README and code. Extra front matter: `verdict:` (below),
+`doc_id: CARD-<repo-name>`, `doc_type: product-card`.
+
+Required sections:
+
+1. สรุปคุณค่าในหนึ่งประโยค — who it helps and with what outcome.
+2. ปัญหาและผู้ใช้เป้าหมาย
+3. สิ่งที่ทำได้จริงตอนนี้ — features verified in code, not the README's wishes.
+4. หลักฐานสถานะ — stack, commits, first/last commit, tests, CI, deploy
+   config, live URL (checked facts only).
+5. คุณค่าและจุดต่าง — why someone would use it over alternatives; any
+   revenue or reuse angle marked **[สมมติฐาน]**.
+6. ช่องว่างสำคัญ — what blocks it from being a real product.
+7. คำตัดสิน — verdict, reason, and the condition that would change it.
+8. ขั้นต่อไป — 1-3 concrete next actions.
+
+| verdict | Meaning | Follow-up |
+|---|---|---|
+| invest | Real problem, working core, worth continuing | Promote to L1 (or higher) docpack |
+| showcase | Good portfolio evidence, not a business | Keep README/demo honest and current |
+| template | Starter or scaffold for new products | Label as template; no product claims |
+| merge | Duplicates another repo | Name the canonical twin |
+| archive | No meaningful value left | Archive after owner approval |
 
 ## Front matter (every document)
 

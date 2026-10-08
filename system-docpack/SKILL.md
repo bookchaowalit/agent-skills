@@ -30,7 +30,13 @@ tier (L1 Lite, L2 Standard, L3 Full). EV3 is the reference implementation.
 6. Build PDFs with `task docpack:build -- <system-id> [glob]`. Packs marked
    `pdf_builder: legacy` (EV3) keep their own builder under the client's
    `automation/docpack-pdf/`.
-7. Re-run `task docpack:check`; then `task test:docpack` if the checker or
+7. Personal Book Dev repos are discovered automatically and need a Product
+   Card (L0). Collect facts with `python3 infra/scripts/docpack/repo_facts.py`,
+   write `DOCPACK/00-product-card.md` with a verdict, then
+   `task docpack:cards:index`. Promote an `invest` repo through
+   `repo_discovery.tier_overrides` and write its L1+ docs in the same pack.
+   Commit only `DOCPACK/` inside each nested repo.
+8. Re-run `task docpack:check`; then `task test:docpack` if the checker or
    registry changed, and `task docs:check` before handoff.
 
 ## Decision rules
