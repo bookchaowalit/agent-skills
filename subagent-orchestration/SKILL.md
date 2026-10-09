@@ -50,7 +50,7 @@ release approval. Sub-agents get one bounded subtask each and return the
      plus `solo-security`.
    - **Run Codex** only after tests, typecheck, lint, and build pass. Commit
      the change set as one scoped commit, then run
-     `codex exec --ephemeral -s read-only -m gpt-6.1-sol -c model_reasoning_effort='"high"' "Review commit <sha> (git show <sha>) against: <acceptance criteria>. Do not edit files. Report each finding with severity, file:line, evidence, and a suggested fix, or say no findings." < /dev/null`.
+     `codex --profile solo-audit --ask-for-approval never exec --ephemeral -s read-only -m gpt-6.1-sol -c model_reasoning_effort='"high"' "Review commit <sha> (git show <sha>) against: <acceptance criteria>. Do not edit files. Report each finding with severity, file:line, evidence, and a suggested fix, or say no findings." < /dev/null`.
      (`codex review --commit <sha>` works too, but it cannot take the
      acceptance criteria as a prompt.)
    - **Triage every finding yourself** against the evidence; Codex has no
@@ -95,6 +95,8 @@ easier than its role default.
 | Architecture or cross-system design | Opus (main agent) | Codex review |
 | Security, migration, payment, data deletion | Opus security plus implementer with `model: sonnet` or `opus` | Codex review and tests; release approval stays with the user |
 
+The review gate column is the minimum. The risk tier in step 7 decides whether
+Codex also runs: any row rated medium or high risk gets a Codex review.
 Automated checks (tests, lint, typecheck, CI) are always the first gate; the
 Codex review never replaces them.
 
