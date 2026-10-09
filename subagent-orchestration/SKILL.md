@@ -52,16 +52,42 @@ release approval. Sub-agents get one bounded subtask each and return the
 
 | Subtask kind | Role | Model / effort |
 | --- | --- | --- |
-| Locate files, map call paths, collect evidence | `solo-explorer` | Haiku, `high` |
-| Schema, contract, lineage, query audit | `solo-data` | Haiku, `high` |
-| Browser rendering and interaction checks | `solo-ui-verifier` | Haiku, `high` |
-| Bounded code or docs change | `solo-implementer` | Haiku, `high`; pass `model: opus` for ambiguous or cross-cutting edits |
-| Reproduce and root-cause a failure | `solo-debugger` | inherit Opus |
-| Diff review, regression risk | `solo-reviewer` | inherit Opus |
+| Locate files, map call paths, collect evidence | `solo-explorer` | Haiku, `medium` |
+| Schema, contract, lineage, query audit | `solo-data` | Haiku, `medium` |
+| Browser rendering and interaction checks | `solo-ui-verifier` | Haiku, `medium` |
+| Bounded code or docs change | `solo-implementer` | Haiku, `medium` |
+| Reproduce and root-cause a failure | `solo-debugger` | Sonnet, `medium` |
+| In-session diff review when Codex is unavailable | `solo-reviewer` | Sonnet, `medium` |
 | Secrets, permissions, MCP, privacy audit | `solo-security` | inherit Opus |
+| Independent review of every committed change | Codex CLI (step 7) | `gpt-6.1-sol`, `high` |
 
 Models and efforts come from `claude_model` and `claude_effort` in
 `.github/agents/roles.yaml`; change them there and run `task subagents:sync`.
+Override per call with the Agent `model` parameter when a subtask is harder or
+easier than its role default.
+
+## Risk-based routing
+
+| Task kind | Primary | Review gate |
+| --- | --- | --- |
+| Rename, formatting, boilerplate | Haiku implementer | Focused tests and lint |
+| CRUD, API, UI component in known patterns | Haiku implementer | Tests, typecheck, static analysis |
+| Multi-file feature or large refactor | Implementer with `model: sonnet` | Codex review |
+| Complex debugging | Sonnet debugger; escalate to Opus | Codex review |
+| Architecture or cross-system design | Opus (main agent) | Codex review |
+| Security, migration, payment, data deletion | Opus security plus implementer with `model: sonnet` or `opus` | Codex review and tests; release approval stays with the user |
+
+Automated checks (tests, lint, typecheck, CI) are always the first gate; the
+Codex review never replaces them.
+
+## Escalation rule
+
+- A Haiku worker gets at most two attempts at the same subtask. After the second
+  failed verification, re-dispatch with `model: sonnet` and the failure
+  evidence in the brief.
+- A Sonnet worker gets at most two attempts; then the main agent takes the
+  subtask itself or asks the user.
+- Never loop a worker on the same failing check without new evidence.
 
 ## Brief quality bar
 
