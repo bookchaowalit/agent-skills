@@ -63,8 +63,25 @@ release approval. Sub-agents get one bounded subtask each and return the
      checks. Then Codex reviews the fix commit.
    - **Stop** when a review has no blocking finding (accept), or when the
      escalation limit below is reached.
+   - **Track review scope.** Record the SHA each review covered. Accept only
+     when the reviewed SHA set equals the commits being accepted; any commit
+     after the last clean review needs its own review at the same risk tier.
+   - **Track every blocking finding** to one end state: *fixed* (fix commit
+     plus passing check), *disputed* (evidence that it is not a defect), or
+     *escalated* (to a stronger model or the user). Do not accept a change set
+     while a blocking finding is still open.
+   - **Verify after the last change.** If anything changed after the review
+     passed (even a rebase or a doc tweak), rerun the focused checks and
+     confirm the diff stayed inside the reviewed scope before accepting.
+   - The reviewer's write boundary is the OS sandbox (`-s read-only` under the
+     `solo-audit` profile), not the prompt; writes fail with `Read-only file
+     system`. Never run the reviewer with a writable sandbox.
 8. **Report.** Summarize the tree status, what changed, verification evidence,
-   review rounds and their findings, and residual risks.
+   review rounds with their reviewed SHAs and finding states, and residual
+   risks. Also record the workflow metrics: wall-clock task time, review
+   latency, review rounds, first-pass acceptance (yes/no), escalations, and
+   which models ran. These feed the stack comparison; do not tune routing
+   without them.
 
 ## Routing table
 
