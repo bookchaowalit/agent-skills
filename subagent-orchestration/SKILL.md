@@ -52,10 +52,10 @@ release approval. Sub-agents get one bounded subtask each and return the
 
 | Subtask kind | Role | Model / effort |
 | --- | --- | --- |
-| Locate files, map call paths, collect evidence | `solo-explorer` | Haiku 5.5, `medium` |
-| Schema, contract, lineage, query audit | `solo-data` | Haiku 5.5, `medium` |
-| Browser rendering and interaction checks | `solo-ui-verifier` | Haiku 5.5, `medium` |
-| Bounded code or docs change | `solo-implementer` | inherit Opus |
+| Locate files, map call paths, collect evidence | `solo-explorer` | Haiku, `high` |
+| Schema, contract, lineage, query audit | `solo-data` | Haiku, `high` |
+| Browser rendering and interaction checks | `solo-ui-verifier` | Haiku, `high` |
+| Bounded code or docs change | `solo-implementer` | Haiku, `high`; pass `model: opus` for ambiguous or cross-cutting edits |
 | Reproduce and root-cause a failure | `solo-debugger` | inherit Opus |
 | Diff review, regression risk | `solo-reviewer` | inherit Opus |
 | Secrets, permissions, MCP, privacy audit | `solo-security` | inherit Opus |
