@@ -29,4 +29,4 @@ Convert vague interest into a decision-ready offer without overpromising or doin
 
 ## Handoff
 
-Once accepted, move the work into the correct `engagements/` workspace, preserve the signed scope and assumptions, create milestones and acceptance checks, and identify the person responsible for client communication.
+Once accepted, move the work into the client's folder under `projects/product/engineering/book-dev/github/bookchaowalit-freelance/<client>/`, preserve the signed scope and assumptions, create milestones and acceptance checks, and identify the person responsible for client communication.

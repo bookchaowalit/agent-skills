@@ -57,7 +57,7 @@ caching, and provider accounting vary by client.
 - Put deterministic, repeated logic in code or an `infra/` script; use the model for interpretation, prioritization, or language generation.
 - Add an MCP surface when an AI agent needs a reusable capability with a clear schema; keep the underlying operation testable without the model.
 - Treat uncertain, conflicting, or incomplete tool results as an explicit unknown and ask for clarification when it affects an external action.
-- Keep first-party project work in `projects/`; keep hired/client repository boundaries in `engagements/`; do not blur either with `infra/` or nested repositories.
+- Keep first-party project work in `projects/`; keep hired/client repository boundaries in `projects/product/engineering/book-dev/github/bookchaowalit-freelance/<client>/`; do not blur either with `infra/` or nested repositories.
 - Preserve an audit trail for approvals, external writes, and important decisions without logging tokens, credentials, or private payloads.
 
 ## Solo Empire handoff

@@ -1,7 +1,7 @@
 # System Docpack Standard
 
 Canonical contract for the per-system document pack (docpack) used across the
-Solo Empire portfolio. EV3 (`clients/oak/ev3-franchise/EV3-DOCPACK-v0.1`) is
+Solo Empire portfolio. EV3 (`projects/product/engineering/book-dev/github/bookchaowalit-freelance/oak/ev3-franchise/EV3-DOCPACK-v0.1`) is
 the reference implementation; this standard is the portable subset every
 system must meet for its tier. The machine-readable copy of the doc types and
 tiers lives in `repository-catalog/registries/docpack-coverage.yaml`; keep

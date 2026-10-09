@@ -10,11 +10,11 @@ Reduce exposure, make trust boundaries visible, and stop unsafe actions before t
 ## Review workflow
 
 1. Classify the data as public, internal, client-confidential, personal, regulated, or secret. Minimize collection and define retention for anything non-public.
-2. Map trust boundaries, owners, entry points, data stores, external services, nested repositories, and human approvals. Pay special attention to `infra/.env`, `accounts/`, `engagements/`, `data/raw/`, backups, and generated reports.
+2. Map trust boundaries, owners, entry points, data stores, external services, nested repositories, and human approvals. Pay special attention to `infra/.env`, `accounts/`, `projects/product/engineering/book-dev/github/bookchaowalit-freelance/`, `data/raw/`, backups, and generated reports.
 3. Threat-model authentication, authorization, prompt or code injection, SSRF, unsafe file paths, webhook spoofing, excessive permissions, dependency risk, data leakage, replay, and destructive operations.
 4. Apply least privilege, allowlists, schema validation, output encoding, timeouts, rate limits, idempotency, redaction, audit events, and safe error messages.
 5. Keep secrets in approved environment or secret-management mechanisms. Never print, commit, paste into prompts, or place credentials in fixtures, logs, screenshots, or documentation.
-6. Protect client boundaries: use the correct `engagements/` workspace, avoid cross-client data access, and do not modify nested repositories unless they are explicitly in scope.
+6. Protect client boundaries: use the correct `projects/product/engineering/book-dev/github/bookchaowalit-freelance/<client>/` folder, avoid cross-client data access, and do not modify nested repositories unless they are explicitly in scope.
 7. Verify with available tests, typechecks, dependency or secret scans, migration backups, and a manual review of permissions and logs. Record checks that could not run.
 8. If an incident is suspected, contain access, revoke or rotate exposed credentials, preserve relevant evidence, assess affected data, and follow the repository or client notification policy.
 
