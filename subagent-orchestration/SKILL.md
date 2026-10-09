@@ -40,11 +40,29 @@ release approval. Sub-agents get one bounded subtask each and return the
    concrete (paths, lines, command output), tests distinguish passed from
    skipped. Re-run the decisive verification yourself; never forward a
    sub-agent claim as fact. Re-brief or escalate on `blocked`/`needs_parent`.
-7. **Review loop.** After implementation passes focused checks, commit the
-   scoped change and run the external reviewer on that commit:
-   `codex review --commit <sha> -c review_model='"gpt-6.1-sol"' -c model='"gpt-6.1-sol"' -c model_reasoning_effort='"high"'`.
-   Verify each finding, fix the real ones with a regression test, commit, and
-   review the new commit. Stop when a review reports no confirmed finding.
+7. **Review loop.** The main agent owns this loop; workers never drive it.
+   The review unit is one reviewable change set (one task's diff, its
+   acceptance criteria, and its test results), not every commit.
+   - **Gate by risk.** Low risk (rename, formatting, boilerplate): automated
+     checks only. Medium risk: one Codex review when the task's
+     implementation is done. High risk (security, migration, payment, data
+     deletion, auth): Codex review at each logical milestone and at the end,
+     plus `solo-security`.
+   - **Run Codex** only after tests, typecheck, lint, and build pass. Commit
+     the change set as one scoped commit, then run
+     `codex exec --ephemeral -s read-only -m gpt-6.1-sol -c model_reasoning_effort='"high"' "Review commit <sha> (git show <sha>) against: <acceptance criteria>. Do not edit files. Report each finding with severity, file:line, evidence, and a suggested fix, or say no findings." < /dev/null`.
+     (`codex review --commit <sha>` works too, but it cannot take the
+     acceptance criteria as a prompt.)
+   - **Triage every finding yourself** against the evidence; Codex has no
+     veto. Mark each one *blocking* (must fix before accepting), *non-blocking*
+     (record it in the report, do not loop on it), or *disputed* (check the
+     evidence before anyone acts on it).
+   - **Send only blocking findings back** to the worker that wrote the change,
+     as a new brief with the finding, the evidence, and the check that must
+     pass. The worker fixes the issue, adds a regression test, and reruns the
+     checks. Then Codex reviews the fix commit.
+   - **Stop** when a review has no blocking finding (accept), or when the
+     escalation limit below is reached.
 8. **Report.** Summarize the tree status, what changed, verification evidence,
    review rounds and their findings, and residual risks.
 
@@ -59,7 +77,7 @@ release approval. Sub-agents get one bounded subtask each and return the
 | Reproduce and root-cause a failure | `solo-debugger` | Sonnet, `medium` |
 | In-session diff review when Codex is unavailable | `solo-reviewer` | Sonnet, `medium` |
 | Secrets, permissions, MCP, privacy audit | `solo-security` | inherit Opus |
-| Independent review of every committed change | Codex CLI (step 7) | `gpt-6.1-sol`, `high` |
+| Independent review of each medium- or high-risk change set | Codex CLI (step 7) | `gpt-6.1-sol`, `high` |
 
 Models and efforts come from `claude_model` and `claude_effort` in
 `.github/agents/roles.yaml`; change them there and run `task subagents:sync`.
@@ -88,6 +106,8 @@ Codex review never replaces them.
 - A Sonnet worker gets at most two attempts; then the main agent takes the
   subtask itself or asks the user.
 - Never loop a worker on the same failing check without new evidence.
+- The same limits apply to Codex review rounds: two failed rounds with the
+  same worker model mean escalate the model, not a third round.
 
 ## Brief quality bar
 
