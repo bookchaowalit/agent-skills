@@ -29,6 +29,14 @@ release approval. Sub-agents get one bounded subtask each and return the
    one verifiable outcome; a subtask is one role, one scope, and one
    deliverable that fits a single sub-agent run. Record dependencies and mark
    which subtasks can run in parallel.
+   **Register the work** before the first delegation, in the local task DB
+   (SQLite is the source of truth; existing sync handles Todoist, Jira, and
+   Notion). Create one parent task per goal with `create_task` and
+   `reuse_open: true`, so a retry or new session reuses the open task instead
+   of duplicating it. Add subtasks (`parent_task_id`) only for deliverables
+   that go to separate workers; a small change needs only the parent task.
+   Use the task ID as the correlation ID in every brief and commit message
+   (`Task: #<id>`).
 3. **Route.** Pick the role and model per subtask with the routing table below.
    Keep subtasks the main agent will do itself in the same tree.
 4. **Brief.** Write one delegation brief per subtask with every field of the
@@ -80,8 +88,11 @@ release approval. Sub-agents get one bounded subtask each and return the
    review rounds with their reviewed SHAs and finding states, and residual
    risks. Also record the workflow metrics: wall-clock task time, review
    latency, review rounds, first-pass acceptance (yes/no), escalations, and
-   which models ran. These feed the stack comparison; do not tune routing
-   without them.
+   which models ran, plus the minutes spent on task bookkeeping. Append them
+   to the parent task with `update_task` `append_notes` as one line:
+   `trial: tier=<low|medium|high> models=<...> shas=<...> total_min=<n> review_min=<n> rounds=<n> first_pass=<yes|no> escalations=<n> findings=<fixed/disputed/escalated counts> task_mgmt_min=<n>`,
+   then mark the task done. These feed the stack comparison; do not tune
+   routing without them.
 
 ## Routing table
 
