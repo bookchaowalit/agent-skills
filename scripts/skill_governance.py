@@ -26,7 +26,7 @@ import yaml
 import os
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-NON_SKILL_DIRS = frozenset({"scripts", "tests", "docs", "node_modules"})
+NON_SKILL_DIRS = frozenset({"scripts", "tests", "docs", "node_modules", "vendor"})
 
 
 MAX_SKILL_LINES = 500

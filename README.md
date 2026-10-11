@@ -98,3 +98,7 @@ task audit     # complete governance audit as JSON
 Router and role-coverage checks are optional: set `SOLO_ROUTER_PATH` to a `router.py` to audit routes, and
 `SOLO_ARCHITECTURE_ROOT` (default `../solo-architecture`) to check role coverage. When unset or absent they
 are skipped, so the checks pass in a fresh clone.
+
+## Vendored skills
+
+`vendor/<name>/` holds third-party skills kept as published (for example `vendor/impeccable`, the design skill). They are linked into the harness folders like our own skills but are not held to the house governance rules.
