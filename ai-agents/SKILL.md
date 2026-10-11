@@ -44,7 +44,7 @@ request → agent instructions → tool selection → infra operation → struct
 | Request | Primary boundary |
 |---|---|
 | Dashboard, health, skills, goals, projects, tasks | `infra/cli.ts` and the SQLite database |
-| Database schema or migration | `infra/database/` and `infra/scripts/db/` |
+| Database schema or migration | the owning cell repository (`online-systems.yaml`); the SQLite `infra/database/` was retired 2026-10-11 |
 | AI-facing tool or MCP behavior | `infra/mcp-server/` |
 | REST endpoint or client | the owning cell repository (`online-systems.yaml`); `infra/api/` was retired 2026-10-11 |
 | Scheduled workflow or system automation | `infra/scripts/` |
