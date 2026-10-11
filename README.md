@@ -19,7 +19,7 @@ For a short or cross-cutting request, start with
 `solo-empire-operator/SKILL.md`; it selects the relevant infra command,
 repository document, and specialist skill without loading the whole system.
 
-Run `task skills:check -- --json` before deciding that a new
+Run `task audit` (JSON) or `task check` before deciding that a new
 package is needed. Use `govern-ai-skills` to extend an existing skill when the
 user outcome already overlaps; otherwise use the active `skill-creator`
 scaffold with `skill-template` as the repository contract. Skill names use
@@ -85,3 +85,16 @@ runtime dependency on them or on the `solo-empire` hub.
 Harnesses (Claude Code, Codex, Gemini) discover skills through symlinks. The
 `solo-empire` registry folder creates them with `task skills:link`, pointing at
 this checkout.
+
+## Checks
+
+```bash
+cd solo-skills
+task check     # check_skills.py + skill_governance.py + tests/skill_governance_test.py
+task audit     # complete governance audit as JSON
+```
+
+`scripts/skill_governance.py` was moved from the solo-empire hub (`infra/scripts/utils/skill_governance.py`).
+Router and role-coverage checks are optional: set `SOLO_ROUTER_PATH` to a `router.py` to audit routes, and
+`SOLO_ARCHITECTURE_ROOT` (default `../solo-architecture`) to check role coverage. When unset or absent they
+are skipped, so the checks pass in a fresh clone.

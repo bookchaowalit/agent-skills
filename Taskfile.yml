@@ -2,9 +2,15 @@ version: "3"
 
 tasks:
   check:
-    desc: Validate every skill package (SKILL.md frontmatter)
+    desc: Validate every skill package (frontmatter, limits, openai metadata, README inventory) and run the tests
     cmds:
       - python3 scripts/check_skills.py
+      - python3 scripts/skill_governance.py {{.CLI_ARGS}}
+      - python3 tests/skill_governance_test.py
+  audit:
+    desc: Full skill governance audit as JSON
+    cmds:
+      - python3 scripts/skill_governance.py --json
   test:
     desc: Alias of check
     cmds:
