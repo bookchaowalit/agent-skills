@@ -1,0 +1,11 @@
+version: "3"
+
+tasks:
+  check:
+    desc: Validate every skill package (SKILL.md frontmatter)
+    cmds:
+      - python3 scripts/check_skills.py
+  test:
+    desc: Alias of check
+    cmds:
+      - task: check

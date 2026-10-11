@@ -12,9 +12,8 @@ ownership, contracts, quality evidence, lineage, and operating controls.
 
 Role, process, learning, and workspace documents (`roles/`, `learning/`, `projects/`,
 `knowledge/`, `quiz/`) live in the `bookchaowalit/solo-knowledge` repository, not in
-this one. Read them from that checkout (default
-`projects/product/engineering/book-dev/github/bookchaowalit/private/solo-knowledge`,
-override with `SOLO_KNOWLEDGE_ROOT`); the relative paths below are relative to its root.
+this one. Read them from that checkout (set
+`SOLO_KNOWLEDGE_ROOT`; default is the `solo-knowledge` sibling of this checkout); the relative paths below are relative to its root.
 Data-lake code lives in `bookchaowalit/solo-data-lake` (override `SOLO_DATA_LAKE_ROOT`).
 
 - Always read [`roles/data-engineering/README.md`](../../roles/data-engineering/README.md)
@@ -56,7 +55,7 @@ change:
 
 ```bash
 # data-lake code lives in bookchaowalit/solo-data-lake; run its suite (see its README):
-# cd "${SOLO_DATA_LAKE_ROOT:-projects/product/engineering/book-dev/github/bookchaowalit/private/solo-data-lake}" && for t in $(find infra/tests -name '*_test.py' | sort); do .venv/bin/python "$t" || echo "FAIL $t"; done
+# cd "${SOLO_DATA_LAKE_ROOT:-../solo-data-lake}" && for t in $(find infra/tests -name '*_test.py' | sort); do .venv/bin/python "$t" || echo "FAIL $t"; done
 task contracts:check
 task docs:check
 ```

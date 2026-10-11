@@ -1,7 +1,7 @@
 # System Docpack Standard
 
 Canonical contract for the per-system document pack (docpack) used across the
-Solo Empire portfolio. EV3 (`projects/product/engineering/book-dev/github/bookchaowalit-freelance/oak/ev3-franchise/EV3-DOCPACK-v0.1`) is
+Solo Empire portfolio. EV3 (`bookchaowalit-freelance/oak/ev3-franchise/EV3-DOCPACK-v0.1`) is
 the reference implementation; this standard is the portable subset every
 system must meet for its tier. The machine-readable copy of the doc types and
 tiers lives in `repository-catalog/registries/docpack-coverage.yaml`; keep
@@ -16,7 +16,7 @@ both in sync.
 | L2 Standard | Our public website and small client/internal systems | L1 + srs, ux-flows, test-uat, rtm |
 | L3 Full | Paid client systems with acceptance or handover | L2 + business-case, business-flow, business-rules-data, trd-api-data, delivery-raid, decisions-glossary |
 
-Personal repositories under `projects/product/engineering/book-dev/github/`
+Personal repositories in the book-dev GitHub checkout
 are discovered automatically and always need a `product-card`; a repository
 whose card verdict is `invest` is promoted to L1+ through `tier_overrides` in
 the registry. A system may exceed its tier. Do not inflate a tier with placeholder text: a

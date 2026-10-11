@@ -1,7 +1,8 @@
-# Solo Empire Skills
+# Solo Skills
 
-This folder contains portable AI skill packages for work performed in this
-repository. A skill is a directory with a required `SKILL.md`; it may also
+This repository (`bookchaowalit/solo-skills`) holds the portable AI skill
+packages for Solo Empire work. It was split from the `solo-empire` hub
+(`skills/`) with history kept via `git subtree split`. A skill is a directory with a required `SKILL.md`; it may also
 include `agents/openai.yaml`, `scripts/`, `references/`, or `assets/` when they
 are genuinely needed.
 
@@ -68,3 +69,19 @@ skills/
     └── agents/
         └── openai.yaml
 ```
+
+## Checks
+
+```bash
+task check        # python3 scripts/check_skills.py: every skill has valid SKILL.md frontmatter
+```
+
+Commands that skills mention (`task ...`, `infra/...`) now live in the
+`solo-ops` and `solo-architecture` repositories; this repository has no
+runtime dependency on them or on the `solo-empire` hub.
+
+## Using the skills from a harness
+
+Harnesses (Claude Code, Codex, Gemini) discover skills through symlinks. The
+`solo-empire` registry folder creates them with `task skills:link`, pointing at
+this checkout.

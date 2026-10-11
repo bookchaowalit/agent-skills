@@ -10,7 +10,7 @@ Ship the smallest useful vertical slice while making quality, cost, security, an
 ## Delivery workflow
 
 1. Define the user, job to be done, success metric, acceptance examples, and non-goals. Separate a demo promise from a production promise.
-2. Inspect the repository state and choose the correct boundary: `projects/` for first-party project work, `projects/product/engineering/book-dev/github/bookchaowalit-freelance/<client>/` for hired/client work, and `infra/` for shared operating capabilities.
+2. Inspect the repository state and choose the correct boundary: `projects/` for first-party project work, the client's own `bookchaowalit-freelance/<client>` repository for hired/client work, and `infra/` for shared operating capabilities.
 3. Write a short architecture decision covering UI/API, model provider, prompts, data sources, authentication, authorization, observability, cost limits, fallbacks, and human review.
 4. Implement one end-to-end slice using existing packages and patterns. Keep provider-specific code behind a small adapter and keep deterministic validation in code.
 5. Test behavior, not just the happy path: representative inputs, prompt or retrieval quality, malformed data, tool failure, rate limits, latency, cost, authorization, and secret handling.
