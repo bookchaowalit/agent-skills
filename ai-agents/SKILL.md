@@ -46,10 +46,10 @@ request → agent instructions → tool selection → infra operation → struct
 | Dashboard, health, skills, goals, projects, tasks | `infra/cli.ts` and the SQLite database |
 | Database schema or migration | `infra/database/` and `infra/scripts/db/` |
 | AI-facing tool or MCP behavior | `infra/mcp-server/` |
-| REST endpoint or client | `infra/api/` |
+| REST endpoint or client | the owning cell repository (`online-systems.yaml`); `infra/api/` was retired 2026-10-11 |
 | Scheduled workflow or system automation | `infra/scripts/` |
-| Kubernetes, GitOps, IaC, policies, onboarding | `infra/platform/` |
-| Local services and homelab | `infra/self-hosted-stack/` |
+| Kubernetes, GitOps, IaC, policies, onboarding | `bookchaowalit/solo-platform-kit` (repository-wide registries stay in `infra/platform/`) |
+| Local services and homelab | `bookchaowalit/solo-homelab` |
 | System-wide verification | `infra/tests/` and `infra/package.json` |
 
 Follow the tool-selection and context-efficiency policy in
@@ -79,7 +79,7 @@ change:
 - Database changes: relevant tests under `infra/tests/`, plus
   `task db:verify`.
 - Platform changes: `task test:platform` and the relevant
-  validation scripts under `infra/platform/`.
+  validation scripts in `bookchaowalit/solo-platform-kit`.
 - MCP changes: `task test:mcp`.
 - Go task-sync or notifier changes: `task test:go`.
 - Python automation changes: `task test:python` and the
