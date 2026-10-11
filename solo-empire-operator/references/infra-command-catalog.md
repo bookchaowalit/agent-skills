@@ -97,14 +97,12 @@ task db:verify
 task db:migrate
 ./empire db backup
 ./empire db verify
-npx tsx infra/cli.ts crm
+python3 infra/scripts/cli/ledger-cli.py clients
 task media:stock -- --list --json
 task media:stock -- "japanese temple" --json
 task media:stock -- "japanese temple" --apply --limit 3
 task media:stock -- --pack editor --apply
 task catalog:art-pack -- --pack botanical-patterns --apply
-task sales:pipeline -- --json
-task sales:pipeline -- --apply --json --limit 5
 task seo:report -- --json
 task auth:google-search-console
 task seo:report -- fetch --month 2026-08 --json
