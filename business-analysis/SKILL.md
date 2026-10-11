@@ -15,7 +15,9 @@ use only the artifact templates required by the bounded initiative.
 
 - Read dashboard/CURRENT-STATE.md, docs/ARCHITECTURE.md, and
   docs/AI-AGENT-GUIDE.md before substantial work.
-- Read roles/business-analyst/README.md and PROCESS.md.
+- Read `roles/business-analyst/README.md` and `PROCESS.md` from the `bookchaowalit/solo-knowledge`
+  checkout (default `projects/product/engineering/book-dev/github/bookchaowalit/private/solo-knowledge`,
+  override `SOLO_KNOWLEDGE_ROOT`); they no longer live in this repository.
 - Identify the owning boundary, accountable decision maker, affected users,
   data classification, current status, and live task source.
 - Inspect git status and preserve unrelated changes.

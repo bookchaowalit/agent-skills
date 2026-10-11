@@ -74,7 +74,7 @@ Focused checks:
 ```bash
 task test:mcp
 task test:database
-task test:data-lake
+# data-lake suite: run the tests in bookchaowalit/solo-data-lake (see its README)
 task test:python
 task test:go
 task test:platform

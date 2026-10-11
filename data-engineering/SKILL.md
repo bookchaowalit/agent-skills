@@ -10,6 +10,13 @@ ownership, contracts, quality evidence, lineage, and operating controls.
 
 ## Context routing
 
+Role, process, learning, and workspace documents (`roles/`, `learning/`, `projects/`,
+`knowledge/`, `quiz/`) live in the `bookchaowalit/solo-knowledge` repository, not in
+this one. Read them from that checkout (default
+`projects/product/engineering/book-dev/github/bookchaowalit/private/solo-knowledge`,
+override with `SOLO_KNOWLEDGE_ROOT`); the relative paths below are relative to its root.
+Data-lake code lives in `bookchaowalit/solo-data-lake` (override `SOLO_DATA_LAKE_ROOT`).
+
 - Always read [`roles/data-engineering/README.md`](../../roles/data-engineering/README.md)
   for the role boundary and gates.
 - Read [`roles/data-engineering/PROCESS.md`](../../roles/data-engineering/PROCESS.md)
@@ -48,7 +55,8 @@ Run the narrow data tests first, then repository checks when tracked files
 change:
 
 ```bash
-task test:data-lake
+# data-lake code lives in bookchaowalit/solo-data-lake; run its suite (see its README):
+# cd "${SOLO_DATA_LAKE_ROOT:-projects/product/engineering/book-dev/github/bookchaowalit/private/solo-data-lake}" && for t in $(find infra/tests -name '*_test.py' | sort); do .venv/bin/python "$t" || echo "FAIL $t"; done
 task contracts:check
 task docs:check
 ```
