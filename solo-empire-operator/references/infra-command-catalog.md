@@ -74,7 +74,7 @@ Focused checks:
 ```bash
 task test:mcp
 task test:database
-# data-lake suite: run the tests in bookchaowalit/solo-data-lake (see its README)
+# data-lake suite: run the tests in bookchaowalit/data-lake (see its README)
 task test:python
 task test:go
 task test:platform
@@ -126,12 +126,12 @@ production. It covers candidate training, deterministic evaluation, local
 registration, categorical drift monitoring, and manual promotion semantics.
 
 ```bash
-python3 <solo-mlops checkout>/infra/scripts/mlops/evaluate.py --json
-python3 <solo-mlops checkout>/infra/scripts/mlops/pipeline.py \
+python3 <mlops checkout>/infra/scripts/mlops/evaluate.py --json
+python3 <mlops checkout>/infra/scripts/mlops/pipeline.py \
   --output-dir "$(mktemp -d)" \
   --registry-dir "$(mktemp -d)" \
   --json
-python3 <solo-mlops checkout>/infra/tests/mlops/mlops_pipeline_test.py
+python3 <mlops checkout>/infra/tests/mlops/mlops_pipeline_test.py
 task agent:telemetry -- \
   --route ai-pipeline --provider example --model example-model \
   --input-tokens 900 --output-tokens 100 --token-budget 1200 \

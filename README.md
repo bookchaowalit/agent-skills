@@ -1,6 +1,6 @@
 # Solo Skills
 
-This repository (`bookchaowalit/solo-skills`) holds the portable AI skill
+This repository (`bookchaowalit/agent-skills`) holds the portable AI skill
 packages for Solo Empire work. It was split from the `solo-empire` hub
 (`skills/`) with history kept via `git subtree split`. A skill is a directory with a required `SKILL.md`; it may also
 include `agents/openai.yaml`, `scripts/`, `references/`, or `assets/` when they
@@ -77,7 +77,7 @@ task check        # python3 scripts/check_skills.py: every skill has valid SKILL
 ```
 
 Commands that skills mention (`task ...`, `infra/...`) now live in the
-`solo-ops` and `solo-architecture` repositories; this repository has no
+`ops-toolkit` and `architecture-docs` repositories; this repository has no
 runtime dependency on them or on the `solo-empire` hub.
 
 ## Using the skills from a harness
@@ -89,14 +89,14 @@ this checkout.
 ## Checks
 
 ```bash
-cd solo-skills
+cd agent-skills
 task check     # check_skills.py + skill_governance.py + tests/skill_governance_test.py
 task audit     # complete governance audit as JSON
 ```
 
 `scripts/skill_governance.py` was moved from the solo-empire hub (`infra/scripts/utils/skill_governance.py`).
 Router and role-coverage checks are optional: set `SOLO_ROUTER_PATH` to a `router.py` to audit routes, and
-`SOLO_ARCHITECTURE_ROOT` (default `../solo-architecture`) to check role coverage. When unset or absent they
+`SOLO_ARCHITECTURE_ROOT` (default `../architecture-docs`) to check role coverage. When unset or absent they
 are skipped, so the checks pass in a fresh clone.
 
 ## Vendored skills
