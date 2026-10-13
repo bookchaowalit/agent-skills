@@ -9,9 +9,12 @@ Keep the skill system small, discoverable, testable, and provider-neutral.
 
 ## Workflow
 
-1. Read `dashboard/CURRENT-STATE.md`, `docs/AI-AGENT-GUIDE.md`, and the
-   current worktree status. Preserve unrelated changes.
-2. Run `task skills:check -- --json` and treat its errors as
+1. Read `../architecture-docs/docs/AI-AGENT-GUIDE.md` (or
+   `SOLO_ARCHITECTURE_ROOT/docs/AI-AGENT-GUIDE.md`) and inspect the skill
+   repository worktree status. Consult architecture and owning repository
+   documentation for ownership. Preserve unrelated changes.
+2. Run `task audit` for governance audit JSON and `task check` for complete
+   skill-repository checks; treat their errors as
    evidence. Review `role_coverage.candidate_skill_gaps` as declared candidates;
    do not infer a missing capability from folder names alone.
 3. Classify the request as one of: extend an existing skill, add a new skill,
@@ -19,11 +22,12 @@ Keep the skill system small, discoverable, testable, and provider-neutral.
 4. Before adding a skill, define representative trigger prompts, inputs,
    output, owner, stop condition, approvals, failure cases, and verification.
 5. Use the active `skill-creator` scaffold for a new package. Keep reusable
-   instructions in `skills/`; keep repository runtime code and tests in
-   `infra/`. Add references or assets only when progressive disclosure needs
+   instructions in a skill package at this repository root; keep runtime code
+   and operational commands in their owning repositories (`platform-ops-cli`
+   for operations, `architecture-docs` for architecture documents). Add references or assets only when progressive disclosure needs
    them.
-6. Keep `SKILL.md` concise, update `agents/openai.yaml` and
-   `skills/README.md`, and add a router entry only when short requests need a
+6. Keep `SKILL.md` concise, update `agents/openai.yaml` and this repository's
+   `README.md`, and add a router entry only when short requests need a
    distinct deterministic route.
 7. Preserve the existing context and token policy unless the user explicitly
    asks to change it. Never change model selection, cache policy, token

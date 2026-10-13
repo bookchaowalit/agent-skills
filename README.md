@@ -1,8 +1,9 @@
 # Solo Skills
 
 This repository (`bookchaowalit/agent-skills`) holds the portable AI skill
-packages for Solo Empire work. It was split from the `solo-empire` hub
-(`skills/`) with history kept via `git subtree split`. A skill is a directory with a required `SKILL.md`; it may also
+packages for Solo Empire work. The `solo-empire` hub now owns the registry and
+agent harness only. A skill is a directory at this repository root with a
+required `SKILL.md`; it may also
 include `agents/openai.yaml`, `scripts/`, `references/`, or `assets/` when they
 are genuinely needed.
 
@@ -62,12 +63,10 @@ instructions have one source of truth and are not duplicated.
 ## Layout
 
 ```text
-skills/
-├── README.md
-└── <skill-name>/
-    ├── SKILL.md
-    └── agents/
-        └── openai.yaml
+<skill-name>/
+├── SKILL.md
+└── agents/
+    └── openai.yaml
 ```
 
 ## Checks
@@ -76,15 +75,17 @@ skills/
 task check        # python3 scripts/check_skills.py: every skill has valid SKILL.md frontmatter
 ```
 
-Commands that skills mention (`task ...`, `infra/...`) now live in the
-`ops-toolkit` and `architecture-docs` repositories; this repository has no
-runtime dependency on them or on the `solo-empire` hub.
+Operational commands live in `platform-ops-cli` (legacy sibling name
+`ops-toolkit`); architecture documents live in `architecture-docs`. This
+repository has no runtime dependency on them or on the hub.
 
 ## Using the skills from a harness
 
 Harnesses (Claude Code, Codex, Gemini) discover skills through symlinks. The
-`solo-empire` registry folder creates them with `task skills:link`, pointing at
-this checkout.
+hub harness creates them with
+`python3 infra/scripts/agent/harness_skills.py --write`, pointing at this
+checkout. Run that command from the hub only; skill validation (`task check`,
+`task audit`) runs from this repository.
 
 ## Checks
 

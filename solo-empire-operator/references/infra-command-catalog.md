@@ -1,6 +1,10 @@
 # Solo Empire Infra Command Catalog
 
-Use this as a route lookup. Run commands from the repository root. Prefer the
+Use this as a route lookup. Run operational commands from `platform-ops-cli`
+(`SOLO_OPS_ROOT`, legacy sibling `../ops-toolkit`). Read architecture documents
+from `architecture-docs` (`SOLO_ARCHITECTURE_ROOT`, sibling
+`../architecture-docs`). Consult the hub catalog for registry and hub harness work;
+registered systems are operated from their owning repositories. Prefer the
 narrowest check that answers the request; do not run all portfolio labs by
 default.
 
@@ -8,13 +12,13 @@ default.
 
 | Need | Read first |
 |---|---|
-| Current state | `dashboard/CURRENT-STATE.md` |
-| Architecture or boundary | `docs/ARCHITECTURE.md`, `docs/AI-AGENT-GUIDE.md` |
-| Infra inventory | `infra/README.md` |
-| Workspace location | `docs/WORKSPACE-STRUCTURE.md`, `docs/WORKSPACE-LOCATION-MAP.md` |
-| New ingress/import | `systems/ai-data/data-lake-architecture.md`, `learning/platform-engineering/app-cli-data-lake-playbook.md` |
-| AI/RAG/MLOps | `systems/ai-data/central-mlops-devsecops-pipeline.md`, matching `operations/` runbook |
-| Documentation change | `docs/governance/DOCUMENTATION-STANDARDS.md`, `docs/governance/DOC-MAINTENANCE.md` |
+| Architecture and repository ownership | `architecture-docs/docs/AI-AGENT-GUIDE.md` and owning repository READMEs |
+| Architecture or boundary | `architecture-docs/docs/ARCHITECTURE.md`, `architecture-docs/docs/AI-AGENT-GUIDE.md` |
+| Infra inventory | `platform-ops-cli/README.md` |
+| Workspace location | `architecture-docs/docs/WORKSPACE-STRUCTURE.md`, `architecture-docs/docs/WORKSPACE-LOCATION-MAP.md` |
+| New ingress/import | `architecture-docs/systems/ai-data/data-lake-architecture.md`, `architecture-docs/learning/platform-engineering/app-cli-data-lake-playbook.md` |
+| AI/RAG/MLOps | `architecture-docs/systems/ai-data/central-mlops-devsecops-pipeline.md`, matching `architecture-docs/operations/` runbook |
+| Documentation change | `architecture-docs/docs/governance/DOCUMENTATION-STANDARDS.md`, `architecture-docs/docs/governance/DOC-MAINTENANCE.md` |
 | External identity | `accounts/README.md`, `accounts/ACCOUNT-REGISTRY.md` |
 
 ## Short-request route matrix
@@ -35,27 +39,15 @@ default.
 
 ```bash
 git status --short
-python3 infra/scripts/utils/system_health.py --quick
-task health
+task status
 task dashboard
 task tasks
-npx tsx infra/cli.ts skills
-npx tsx infra/cli.ts projects
-task agent:route -- "เช็กระบบและ AI pipeline" --json
-task agent:operator -- "เช็กระบบและ AI pipeline" --json
-task agent:context -- \
-  dashboard/CURRENT-STATE.md docs/ARCHITECTURE.md --max-lines 80 --json
-
-# Thin human-facing facade over the same Task boundary
-./empire status
-./empire doctor
-./empire db migrate
-./empire agent run "เช็กระบบและ AI pipeline" --json
+task tasks:health
+task agent:decision-context -- --json
 ```
 
-Use `python3 infra/scripts/utils/system_health.py --quick` for a compact live
-health signal. Use `npx tsx infra/cli.ts health` when the business-health
-breakdown is needed.
+Run these from the `platform-ops-cli` checkout. They are Taskfile-backed
+operational interfaces; consult its Taskfile before using additional commands.
 
 ## Verification ladder
 
@@ -69,20 +61,18 @@ task task:parity
 task task:ownership -- --json
 ```
 
-Focused checks:
+Other Taskfile-backed focused checks:
 
 ```bash
-task test:mcp
-task test:database
-# data-lake suite: run the tests in bookchaowalit/data-lake (see its README)
 task test:python
-task test:go
 task test:platform
 task test:workspace
 task test:automation
 task test:analytics
 task test:seo-report
-python3 infra/tests/security/security_test.py
+task contracts:check
+task lint:secrets
+task lint:paths
 ```
 
 Do not describe a check as passed when a credential, external service, or
@@ -90,59 +80,17 @@ optional daemon caused it to be skipped.
 
 ## Database and operational writes
 
-```bash
-task db:backup
-task db:verify
-task db:migrate
-./empire db backup
-./empire db verify
-python3 infra/scripts/cli/ledger-cli.py clients
-task media:stock -- --list --json
-task media:stock -- "japanese temple" --json
-task media:stock -- "japanese temple" --apply --limit 3
-task media:stock -- --pack editor --apply
-task catalog:art-pack -- --pack botanical-patterns --apply
-task seo:report -- --json
-task auth:google-search-console
-task seo:report -- fetch --month 2026-08 --json
-task seo:report -- fetch --month 2026-08 --apply --json
-task seo:report -- report --month 2026-08 --gsc export.zip --ahrefs ahrefs.json --json
-task seo:report -- report --month 2026-08 --gsc export.zip --ahrefs ahrefs.json --apply --json
-task tasks
-task tasks -- add --title "..."
-task tasks -- update <id> --status in_progress
-task tasks -- done <id>
-task tasks -- sync
-```
-
-Back up before schema or migration changes. `dashboard/TASKS.md` is a
-generated view; the task database/provider is canonical. Do not update a
-generated dashboard file directly.
+The live task source of truth is the Tasks API in `empire-platform`; the
+ops-toolkit `task tasks` command is its operational client. If a supported task
+MCP tool is unavailable, record the task/correlation ID in the bounded brief
+or handoff and report the limitation. Do not create a shadow SQLite store or
+request credentials to work around unavailable MCP access.
 
 ## MLOps/AI pipeline
 
 The current pipeline is a local reference lifecycle, not hosted LLM
 production. It covers candidate training, deterministic evaluation, local
 registration, categorical drift monitoring, and manual promotion semantics.
-
-```bash
-python3 <mlops checkout>/infra/scripts/mlops/evaluate.py --json
-python3 <mlops checkout>/infra/scripts/mlops/pipeline.py \
-  --output-dir "$(mktemp -d)" \
-  --registry-dir "$(mktemp -d)" \
-  --json
-python3 <mlops checkout>/infra/tests/mlops/mlops_pipeline_test.py
-task agent:telemetry -- \
-  --route ai-pipeline --provider example --model example-model \
-  --input-tokens 900 --output-tokens 100 --token-budget 1200 \
-  --input-rate-per-1k 0.15 --output-rate-per-1k 0.60 --record --json
-task agent:telemetry -- --stats --stats-days 30 --json
-task agent:model -- \
-  "ทำให้ AI pipeline ประหยัด token" --operation change --token-budget 6000 --json
-task agent:cache -- --stats --json
-task agent:local -- \
-  "ตรวจ AI pipeline แบบ local" --no-cache --json
-```
 
 For a real LLM/RAG change, additionally require:
 

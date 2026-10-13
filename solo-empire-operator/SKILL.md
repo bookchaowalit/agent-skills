@@ -11,11 +11,13 @@ matching skill instead of loading every document or inventing a new command.
 
 ## Operating loop
 
-1. Read `dashboard/CURRENT-STATE.md` first. For code, infra, or agent work,
-   read the relevant sections of `docs/ARCHITECTURE.md`,
-   `docs/AI-AGENT-GUIDE.md`, and `infra/README.md`; use `rg`, focused `sed`
-   ranges, or the bounded operator context pack instead of loading long files
-   in full unless the task needs their complete contract.
+1. Orient from `architecture-docs/docs/AI-AGENT-GUIDE.md` (use `SOLO_ARCHITECTURE_ROOT`
+   or sibling `../architecture-docs`). Read `platform-ops-cli/README.md` for
+   operational ownership (`SOLO_OPS_ROOT`; legacy sibling `../ops-toolkit`).
+   No canonical `dashboard/CURRENT-STATE.md` is present in these owning
+   repositories; use architecture docs rather than assuming that legacy path
+   exists. Use the hub catalog for registry and hub harness work; operate and
+   edit each registered system in its owning repository.
 2. Inspect `git status --short`; preserve unrelated edits, generated files,
    backups, secrets, and nested repositories.
 3. Classify the request as `inspect`, `operate`, `change`, or `plan`, and route

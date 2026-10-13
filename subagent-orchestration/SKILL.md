@@ -29,14 +29,16 @@ release approval. Sub-agents get one bounded subtask each and return the
    one verifiable outcome; a subtask is one role, one scope, and one
    deliverable that fits a single sub-agent run. Record dependencies and mark
    which subtasks can run in parallel.
-   **Register the work** before the first delegation, in the local task DB
-   (SQLite is the source of truth; existing sync handles Todoist, Jira, and
-   Notion). Create one parent task per goal with `create_task` and
-   `reuse_open: true`, so a retry or new session reuses the open task instead
-   of duplicating it. Add subtasks (`parent_task_id`) only for deliverables
-   that go to separate workers; a small change needs only the parent task.
-   Use the task ID as the correlation ID in every brief and commit message
-   (`Task: #<id>`).
+   **Register the work** before the first delegation through the supported
+   Tasks MCP/API interface. The Tasks API in `empire-platform` is the live task
+   source of truth; use `create_task` with `reuse_open: true` so retries reuse
+   the open task. Add subtasks (`parent_task_id`) only for separate worker
+   deliverables. Use the returned task ID as the correlation ID in each brief
+   and commit message (`Task: #<id>`). If the supported task MCP tool is
+   unavailable in this session, record the known correlation ID in the bounded
+   brief/handoff and report that registration could not be completed. Do not
+   create a local SQLite/shadow task store or request credentials as a
+   workaround.
 3. **Route.** Pick the role and model per subtask with the routing table below.
    Keep subtasks the main agent will do itself in the same tree.
 4. **Brief.** Write one delegation brief per subtask with every field of the
