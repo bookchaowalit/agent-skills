@@ -14,7 +14,7 @@ Role, process, learning, and workspace documents (`roles/`, `learning/`, `projec
 `knowledge/`, `quiz/`) live in the `bookchaowalit/knowledge-base` repository, not in
 this one. Read them from that checkout (set
 `SOLO_KNOWLEDGE_ROOT`; default is the `knowledge-base` sibling of this checkout); the relative paths below are relative to its root.
-Data-lake code lives in `bookchaowalit/data-lake-pipelines` (override `SOLO_DATA_LAKE_ROOT`).
+Data-lake code lives in `bookchaowalit/data-lake` (override `SOLO_DATA_LAKE_ROOT`).
 
 - Always read [`roles/data-engineering/README.md`](../../roles/data-engineering/README.md)
   for the role boundary and gates.
@@ -54,8 +54,8 @@ Run the narrow data tests first, then repository checks when tracked files
 change:
 
 ```bash
-# data-lake code lives in bookchaowalit/data-lake-pipelines; run its suite (see its README):
-# cd "${SOLO_DATA_LAKE_ROOT:-../data-lake-pipelines}" && for t in $(find infra/tests -name '*_test.py' | sort); do .venv/bin/python "$t" || echo "FAIL $t"; done
+# data-lake code lives in bookchaowalit/data-lake; run its suite (see its README):
+# cd "${SOLO_DATA_LAKE_ROOT:-../data-lake}" && for t in $(find infra/tests -name '*_test.py' | sort); do .venv/bin/python "$t" || echo "FAIL $t"; done
 task contracts:check
 task docs:check
 ```
