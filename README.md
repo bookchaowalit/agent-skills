@@ -1,6 +1,6 @@
 # Solo Skills
 
-This repository (`bookchaowalit/agent-skills`) holds the portable AI skill
+This repository (`bookchaowalit/platform-agent-skills`) holds the portable AI skill
 packages for Solo Empire work. The `solo-empire` hub now owns the registry and
 agent harness only. A skill is a directory at this repository root with a
 required `SKILL.md`; it may also

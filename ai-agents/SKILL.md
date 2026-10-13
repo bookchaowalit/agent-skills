@@ -49,8 +49,8 @@ request → agent instructions → tool selection → infra operation → struct
 | AI-facing tool or MCP behavior | `mcp-aggregator` (`SOLO_MCP_ROOT` or sibling `../mcp-aggregator`) |
 | REST endpoint or client | the owning cell repository identified by architecture guidance; `infra/api/` was retired 2026-10-11 |
 | Scheduled workflow or system automation | the `platform-ops-cli` checkout or the owning service repository |
-| Kubernetes, GitOps, IaC, policies, onboarding | `bookchaowalit/platform-kit` (ops-owned registries are in `platform-ops-cli/infra/platform/`) |
-| Local services and homelab | `bookchaowalit/homelab` |
+| Kubernetes, GitOps, IaC, policies, onboarding | `bookchaowalit/platform-infra-kit` (ops-owned registries are in `platform-ops-cli/infra/platform/`) |
+| Local services and homelab | `bookchaowalit/platform-homelab-infra` |
 | System-wide verification | the checks documented by each owning repository |
 
 Follow the tool-selection and context-efficiency policy in
@@ -82,7 +82,7 @@ change:
   `task docs:check` from `platform-ops-cli`.
 - Database changes: relevant checks from the owning service repository.
 - Platform changes: `task test:platform` and the relevant
-  validation scripts in `bookchaowalit/platform-kit`.
+  validation scripts in `bookchaowalit/platform-infra-kit`.
 - MCP changes: run the checks documented by `mcp-aggregator`.
 - Python automation changes in ops-toolkit: `task test:python` and the
   focused test task listed in its Taskfile.
