@@ -26,7 +26,7 @@ artifact.
 - Read architecture guidance from `architecture-docs/docs/` (via
   `SOLO_ARCHITECTURE_ROOT` or `../architecture-docs`) and operational command
   ownership from `platform-ops-cli/README.md` (via `SOLO_OPS_ROOT` or legacy
-  sibling `../ops-toolkit`). Neither checkout depends on the hub. Use focused
+  sibling `../platform-ops-cli`). Neither checkout depends on the hub. Use focused
   `rg`/`sed` ranges rather than loading long documents.
 - Read the relevant `operations/` or `integrations/` document when
   the task concerns a documented platform or external integration.
@@ -43,10 +43,10 @@ request → agent instructions → tool selection → infra operation → struct
 
 | Request | Primary boundary |
 |---|---|
-| Tasks | Tasks API in `empire-platform` (`SOLO_PLATFORM_ROOT` or sibling `../empire-platform`); use its supported MCP/API interface or the `platform-ops-cli` task client |
+| Tasks | Tasks API in `empire-platform` (`SOLO_PLATFORM_ROOT` or sibling `../platform-empire`); use its supported MCP/API interface or the `platform-ops-cli` task client |
 | Health, skills, goals, projects, operational CLI | `platform-ops-cli/infra/cli.ts` and its owning services |
 | Database schema or migration | the owning service/cell repository identified by architecture guidance; local SQLite task storage was retired |
-| AI-facing tool or MCP behavior | `mcp-aggregator` (`SOLO_MCP_ROOT` or sibling `../mcp-aggregator`) |
+| AI-facing tool or MCP behavior | `mcp-aggregator` (`SOLO_MCP_ROOT` or sibling `../platform-mcp-aggregator`) |
 | REST endpoint or client | the owning cell repository identified by architecture guidance; `infra/api/` was retired 2026-10-11 |
 | Scheduled workflow or system automation | the `platform-ops-cli` checkout or the owning service repository |
 | Kubernetes, GitOps, IaC, policies, onboarding | `bookchaowalit/platform-infra-kit` (ops-owned registries are in `platform-ops-cli/infra/platform/`) |

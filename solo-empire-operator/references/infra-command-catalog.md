@@ -1,7 +1,7 @@
 # Solo Empire Infra Command Catalog
 
 Use this as a route lookup. Run operational commands from `platform-ops-cli`
-(`SOLO_OPS_ROOT`, legacy sibling `../ops-toolkit`). Read architecture documents
+(`SOLO_OPS_ROOT`, legacy sibling `../platform-ops-cli`). Read architecture documents
 from `architecture-docs` (`SOLO_ARCHITECTURE_ROOT`, sibling
 `../architecture-docs`). Consult the hub catalog for registry and hub harness work;
 registered systems are operated from their owning repositories. Prefer the

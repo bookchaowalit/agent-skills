@@ -13,7 +13,7 @@ matching skill instead of loading every document or inventing a new command.
 
 1. Orient from `architecture-docs/docs/AI-AGENT-GUIDE.md` (use `SOLO_ARCHITECTURE_ROOT`
    or sibling `../architecture-docs`). Read `platform-ops-cli/README.md` for
-   operational ownership (`SOLO_OPS_ROOT`; legacy sibling `../ops-toolkit`).
+   operational ownership (`SOLO_OPS_ROOT`; legacy sibling `../platform-ops-cli`).
    No canonical `dashboard/CURRENT-STATE.md` is present in these owning
    repositories; use architecture docs rather than assuming that legacy path
    exists. Use the hub catalog for registry and hub harness work; operate and
