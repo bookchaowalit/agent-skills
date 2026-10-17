@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -22,8 +23,6 @@ from types import ModuleType
 from typing import Any
 
 import yaml
-
-import os
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 NON_SKILL_DIRS = frozenset({"scripts", "tests", "docs", "node_modules", "vendor"})
@@ -54,7 +53,7 @@ def _parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
     except yaml.YAMLError as exc:
         raise ValueError(f"invalid frontmatter YAML: {exc}") from exc
     if not isinstance(loaded, dict):
-        raise ValueError("frontmatter must be a mapping")
+        raise ValueError("frontmatter must be a mapping")  # noqa: TRY004 - callers catch ValueError for every frontmatter error
     return loaded, text[closing + 5 :]
 
 

@@ -12,7 +12,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from skill_governance import audit, validate_skill_package  # noqa: E402
+from skill_governance import audit, validate_skill_package
 
 
 class SkillGovernanceTest(unittest.TestCase):

@@ -11,7 +11,7 @@ NAME = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 
 def frontmatter(text: str) -> dict[str, str]:
-    match = re.match(r"^---\n(.*?)\n---\n", text, re.S)
+    match = re.match(r"^---\n(.*?)\n---\n", text, re.DOTALL)
     if not match:
         return {}
     fields: dict[str, str] = {}
