@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Validate skill packages: each <name>/SKILL.md has name/description frontmatter."""
+
 from __future__ import annotations
 
 import re
@@ -30,7 +31,9 @@ def check(root: Path = ROOT) -> list[str]:
     for folder in skills:
         meta = frontmatter((folder / "SKILL.md").read_text(encoding="utf-8"))
         if meta.get("name") != folder.name:
-            errors.append(f"{folder.name}: frontmatter name {meta.get('name')!r} does not match folder")
+            errors.append(
+                f"{folder.name}: frontmatter name {meta.get('name')!r} does not match folder"
+            )
         if not NAME.match(folder.name):
             errors.append(f"{folder.name}: invalid skill name")
         if not meta.get("description"):

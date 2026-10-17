@@ -35,7 +35,9 @@ README_ENTRY_PATTERN = re.compile(r"^-\s+([a-z0-9]+(?:-[a-z0-9]+)*)\s+—", re.M
 APPROVED_ROUTER_OVERLAPS = {
     "webhook": frozenset({"data-lake", "external-integrations"}),
 }
-ROLE_COVERAGE_PATH = Path("docs/registries/ROLE-COVERAGE.yaml")  # inside the solo-architecture checkout
+ROLE_COVERAGE_PATH = Path(
+    "docs/registries/ROLE-COVERAGE.yaml"
+)  # inside the solo-architecture checkout
 
 
 def relative(path: Path, project_root: Path = PROJECT_ROOT) -> str:
@@ -101,11 +103,11 @@ def validate_skill_package(skill_dir: Path) -> tuple[dict[str, Any], list[str]]:
     if not isinstance(name, str) or not NAME_PATTERN.fullmatch(name):
         errors.append(f"{skill_dir.name}/SKILL.md: invalid or missing name")
     elif name != skill_dir.name:
-        errors.append(
-            f"{skill_dir.name}/SKILL.md: name {name!r} must match the folder"
-        )
+        errors.append(f"{skill_dir.name}/SKILL.md: name {name!r} must match the folder")
     if not isinstance(description, str) or len(description.strip()) < 40:
-        errors.append(f"{skill_dir.name}/SKILL.md: description must be at least 40 characters")
+        errors.append(
+            f"{skill_dir.name}/SKILL.md: description must be at least 40 characters"
+        )
     elif "TODO" in description:
         errors.append(f"{skill_dir.name}/SKILL.md: description still contains TODO")
     if body and not re.search(r"^#\s+\S", body, re.MULTILINE):
@@ -127,14 +129,20 @@ def validate_skill_package(skill_dir: Path) -> tuple[dict[str, Any], list[str]]:
         return summary, errors
     for field in ("display_name", "short_description", "default_prompt"):
         if not isinstance(interface.get(field), str) or not interface[field].strip():
-            errors.append(f"{skill_dir.name}/agents/openai.yaml: missing interface.{field}")
+            errors.append(
+                f"{skill_dir.name}/agents/openai.yaml: missing interface.{field}"
+            )
     short_description = interface.get("short_description")
     if isinstance(short_description, str) and not 25 <= len(short_description) <= 64:
         errors.append(
             f"{skill_dir.name}/agents/openai.yaml: short_description must be 25-64 characters"
         )
     default_prompt = interface.get("default_prompt")
-    if isinstance(name, str) and isinstance(default_prompt, str) and f"${name}" not in default_prompt:
+    if (
+        isinstance(name, str)
+        and isinstance(default_prompt, str)
+        and f"${name}" not in default_prompt
+    ):
         errors.append(
             f"{skill_dir.name}/agents/openai.yaml: default_prompt must mention ${name}"
         )
@@ -150,7 +158,9 @@ def _load_router(project_root: Path) -> ModuleType:
     router_directory = str(router_path.parent)
     if router_directory not in sys.path:
         sys.path.insert(0, router_directory)
-    spec = importlib.util.spec_from_file_location("solo_empire_skill_router", router_path)
+    spec = importlib.util.spec_from_file_location(
+        "solo_empire_skill_router", router_path
+    )
     if spec is None or spec.loader is None or not router_path.is_file():
         raise RuntimeError(f"unable to load agent router at {router_path}")
     module = importlib.util.module_from_spec(spec)
@@ -159,7 +169,9 @@ def _load_router(project_root: Path) -> ModuleType:
     return module
 
 
-def _audit_router(project_root: Path, skill_names: set[str]) -> tuple[dict[str, Any], list[str], list[str]]:
+def _audit_router(
+    project_root: Path, skill_names: set[str]
+) -> tuple[dict[str, Any], list[str], list[str]]:
     errors: list[str] = []
     warnings: list[str] = []
     if not os.environ.get("SOLO_ROUTER_PATH"):
@@ -179,7 +191,10 @@ def _audit_router(project_root: Path, skill_names: set[str]) -> tuple[dict[str, 
                 f"router route {route.name!r} references missing skill {route.child_skill!r}"
             )
         for context_file in route.context_files:
-            if context_file.startswith("skills/") and not (project_root / context_file[len("skills/"):]).is_file():
+            if (
+                context_file.startswith("skills/")
+                and not (project_root / context_file[len("skills/") :]).is_file()
+            ):
                 errors.append(
                     f"router route {route.name!r} references missing context file {context_file}"
                 )
@@ -204,28 +219,37 @@ def _audit_router(project_root: Path, skill_names: set[str]) -> tuple[dict[str, 
 
     inspect_route = router.route_request("audit skill inventory")
     change_route = router.route_request("add missing skill")
-    return {
-        "version": router.ROUTER_VERSION,
-        "route_count": len(router.ROUTES),
-        "child_skill_routes": child_routes,
-        "approved_keyword_overlaps": approved_overlaps,
-        "unapproved_keyword_overlaps": unapproved_overlaps,
-        "policy_snapshot": {
-            "inspect_token_budget": inspect_route["token_budget"],
-            "inspect_max_context_files": inspect_route["max_context_files"],
-            "change_token_budget": change_route["token_budget"],
-            "change_max_context_files": change_route["max_context_files"],
+    return (
+        {
+            "version": router.ROUTER_VERSION,
+            "route_count": len(router.ROUTES),
+            "child_skill_routes": child_routes,
+            "approved_keyword_overlaps": approved_overlaps,
+            "unapproved_keyword_overlaps": unapproved_overlaps,
+            "policy_snapshot": {
+                "inspect_token_budget": inspect_route["token_budget"],
+                "inspect_max_context_files": inspect_route["max_context_files"],
+                "change_token_budget": change_route["token_budget"],
+                "change_max_context_files": change_route["max_context_files"],
+            },
         },
-    }, errors, warnings
+        errors,
+        warnings,
+    )
 
 
 def _audit_role_coverage(project_root: Path) -> tuple[dict[str, Any], list[str]]:
     """Expose declared role groups without skills as candidates, not failures."""
     errors: list[str] = []
-    architecture = Path(os.environ.get("SOLO_ARCHITECTURE_ROOT") or project_root.parent / "solo-architecture")
+    architecture = Path(
+        os.environ.get("SOLO_ARCHITECTURE_ROOT")
+        or project_root.parent / "solo-architecture"
+    )
     registry_path = architecture / ROLE_COVERAGE_PATH
     if not registry_path.is_file():
-        return {"skipped": f"solo-architecture checkout not found at {architecture}"}, []
+        return {
+            "skipped": f"solo-architecture checkout not found at {architecture}"
+        }, []
     try:
         registry = yaml.safe_load(registry_path.read_text(encoding="utf-8"))
     except yaml.YAMLError as exc:
@@ -255,8 +279,10 @@ def _audit_role_coverage(project_root: Path) -> tuple[dict[str, Any], list[str]]
         if not isinstance(skill_path, str) or not skill_path.startswith("skills/"):
             errors.append(f"role group {role_id!r} has an invalid skill path")
             continue
-        if not (project_root / skill_path[len("skills/"):]).is_file():
-            errors.append(f"role group {role_id!r} references missing skill {skill_path}")
+        if not (project_root / skill_path[len("skills/") :]).is_file():
+            errors.append(
+                f"role group {role_id!r} references missing skill {skill_path}"
+            )
             continue
         mapped.append({"id": role_id, "skill": skill_path})
 
@@ -283,8 +309,11 @@ def audit(project_root: Path = PROJECT_ROOT) -> dict[str, Any]:
         }
 
     skill_dirs = sorted(
-        path for path in skills_root.iterdir()
-        if path.is_dir() and not path.name.startswith(".") and path.name not in NON_SKILL_DIRS
+        path
+        for path in skills_root.iterdir()
+        if path.is_dir()
+        and not path.name.startswith(".")
+        and path.name not in NON_SKILL_DIRS
     )
     skills: list[dict[str, Any]] = []
     for skill_dir in skill_dirs:
@@ -302,7 +331,9 @@ def audit(project_root: Path = PROJECT_ROOT) -> dict[str, Any]:
         errors.append("README.md is missing")
         readme_names: set[str] = set()
     else:
-        readme_names = set(README_ENTRY_PATTERN.findall(readme_path.read_text(encoding="utf-8")))
+        readme_names = set(
+            README_ENTRY_PATTERN.findall(readme_path.read_text(encoding="utf-8"))
+        )
     for name in sorted(skill_names - readme_names):
         errors.append(f"README.md is missing inventory entry: {name}")
     for name in sorted(readme_names - skill_names):
@@ -333,8 +364,12 @@ def audit(project_root: Path = PROJECT_ROOT) -> dict[str, Any]:
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Audit Solo Empire AI skill packages")
-    parser.add_argument("--json", action="store_true", help="emit the complete audit as JSON")
-    parser.add_argument("--strict", action="store_true", help="treat warnings as failures")
+    parser.add_argument(
+        "--json", action="store_true", help="emit the complete audit as JSON"
+    )
+    parser.add_argument(
+        "--strict", action="store_true", help="treat warnings as failures"
+    )
     return parser.parse_args()
 
 

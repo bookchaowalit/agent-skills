@@ -17,7 +17,9 @@ from skill_governance import audit, validate_skill_package
 
 class SkillGovernanceTest(unittest.TestCase):
     def test_tool_selection_policy_is_capability_first_and_context_bounded(self):
-        skill = (REPO_ROOT / "ai-agent-workflows" / "SKILL.md").read_text(encoding="utf-8")
+        skill = (REPO_ROOT / "ai-agent-workflows" / "SKILL.md").read_text(
+            encoding="utf-8"
+        )
         section_heading = "## Tool selection and context efficiency"
         self.assertIn(section_heading, skill)
         start = skill.index(section_heading)
@@ -49,7 +51,10 @@ class SkillGovernanceTest(unittest.TestCase):
         self.assertEqual(result["warnings"], [])
 
     def test_role_coverage_candidates_when_architecture_is_present(self):
-        architecture = Path(os.environ.get("SOLO_ARCHITECTURE_ROOT") or REPO_ROOT.parent / "solo-architecture")
+        architecture = Path(
+            os.environ.get("SOLO_ARCHITECTURE_ROOT")
+            or REPO_ROOT.parent / "solo-architecture"
+        )
         if not (architecture / "docs/registries/ROLE-COVERAGE.yaml").is_file():
             self.skipTest("solo-architecture checkout not present")
         result = audit()
@@ -82,7 +87,9 @@ class SkillGovernanceTest(unittest.TestCase):
             )
             _summary, errors = validate_skill_package(skill_dir)
             self.assertTrue(any("exceeds 500" in error for error in errors))
-            self.assertTrue(any("missing agents/openai.yaml" in error for error in errors))
+            self.assertTrue(
+                any("missing agents/openai.yaml" in error for error in errors)
+            )
 
 
 if __name__ == "__main__":
