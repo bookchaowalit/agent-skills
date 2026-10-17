@@ -1,0 +1,2 @@
+# Only dependency of the skill validators (scripts/, tests/); used by CI and `task check`.
+pyyaml>=6.0.2,<7

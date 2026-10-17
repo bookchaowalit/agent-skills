@@ -1,0 +1,30 @@
+# CI + security baseline (DevSecOps Phase 1). Public repository: GitHub-hosted runners.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  skills:
+    uses: bookchaowalit/platform-ci-workflows/.github/workflows/ci-python.yml@c37ef9d113eefb3ed45429717cb7ca201192c3fc # v1.0.1
+    with:
+      # The same checks as `task check` (Taskfile.yml): skill package validation,
+      # the governance audit and its unittest suite. The router / role-coverage checks
+      # need sibling checkouts and are skipped when those are absent, as locally.
+      test-command: |
+        python scripts/check_skills.py
+        python scripts/skill_governance.py
+        python tests/skill_governance_test.py
+
+  security:
+    uses: bookchaowalit/platform-ci-workflows/.github/workflows/security.yml@c37ef9d113eefb3ed45429717cb7ca201192c3fc # v1.0.1
