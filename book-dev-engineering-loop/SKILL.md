@@ -53,6 +53,10 @@ read execution ticket → inspect context → plan → implement
   part of the implementation task.
 - Do not invent a test command when the repository does not document one;
   report the missing verification path instead.
+- When the change touches anything a user sees (web or mobile UI, copy, menus),
+  run the UI quality gate in `qa-testing/references/ui-quality-gate.md` on the
+  rendered result as part of narrow verification. Open blockers mean the task is
+  not done; tests passing does not override it.
 
 ## Automatic release closeout
 

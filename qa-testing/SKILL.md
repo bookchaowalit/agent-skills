@@ -22,7 +22,10 @@ every test to evidence, and every gap to an owner.
    status, evidence) and a UAT script for business testers.
 5. Record defects with `templates/development-cycle/defect-record.md` and
    update the RTM status column through `business-analysis`.
-6. Check release readiness against `templates/development-cycle/quality-gate-pack.md`.
+6. For any user-facing screen, run the UI quality gate in
+   `references/ui-quality-gate.md` (readability, menu order, Thai copy) on the
+   rendered app at 375px and 1280px, and log each finding as a defect.
+7. Check release readiness against `templates/development-cycle/quality-gate-pack.md`.
 
 ## Decision rules
 
