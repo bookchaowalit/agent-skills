@@ -2,8 +2,8 @@
 
 Run this gate on every user-facing web or mobile change before claiming it is done,
 and on any screen a client will see. It exists because passing tests did not catch
-what a client noticed in minutes (EV3, 2026-10-17): text and spacing that were hard to
-read, menus in an odd order, and unnatural Thai.
+what a client noticed in minutes: text and spacing that were hard to read, menus in an
+odd order, and unnatural Thai.
 
 Check the **rendered** app, not the source. Use a desktop width (1280px) and a phone
 width (375px) for every screen in scope, take a screenshot of each, and cite the
